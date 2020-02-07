@@ -10,27 +10,30 @@
         <script src="lib/jquery-3.4.1.min.js"></script>
         <script src="lib/popper-v1.16.0.min.js"></script>
         <script src="lib/bootstrap-v4-4-1.min.js"></script>
+        <!--
         <script src="lib/react.min.js"></script>
         <script src="lib/react-dom.min.js"></script>
         <script src="lib/babel.min.js"></script>
+        -->
+        <script src="lib/tone.js"></script>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="stylesheets/index.css">
     </head>
     <body>
         <svg class="piano" width="580" height="400" xmlns="http://www.w3.org/2000/svg">
-            <rect data-note="C4" height="174.00001" width="39.2" y="81.45" x="55" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="D4" height="174.00001" width="39.2" y="81.45" x="94.20002" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="E4" height="174.00001" width="39.2" y="81.45" x="133.40002" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="F4" height="174.00001" width="39.2" y="81.45" x="172.60005" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="G4" height="174.00001" width="39.2" y="81.45" x="211.80005" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="A4" height="174.00001" width="39.2" y="81.45" x="251.00007" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="B4" height="174.00001" width="39.2" y="81.45" x="290.20007" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="C#4" height="106.39999" width="25" y="82.44969" x="74.80006" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="D#4" height="106.39999" width="25" y="82.44969" x="127.60008" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="F#4" height="106.39999" width="25" y="82.44969" x="193.2001" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="G#4" height="106.39999" width="25" y="82.44969" x="238.00011" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="A#4" height="106.39999" width="25" y="82.44969" x="283.60012" stroke-width="1.5" stroke="#000" fill="#000000"/>
+            <rect data-note="C4" class="white-key" height="174.00001" width="39.2" y="81.45" x="55" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="D4" class="white-key" height="174.00001" width="39.2" y="81.45" x="94.20002" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="E4" class="white-key" height="174.00001" width="39.2" y="81.45" x="133.40002" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="F4" class="white-key" height="174.00001" width="39.2" y="81.45" x="172.60005" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="G4" class="white-key" height="174.00001" width="39.2" y="81.45" x="211.80005" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="A4" class="white-key" height="174.00001" width="39.2" y="81.45" x="251.00007" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="B4" class="white-key" height="174.00001" width="39.2" y="81.45" x="290.20007" stroke-width="1.5" stroke="#000" fill="#fff"/>
+            <rect data-note="C#4" class="black-key" height="106.39999" width="25" y="82.44969" x="74.80006" stroke-width="1.5" stroke="#000" fill="#000000"/>
+            <rect data-note="D#4" class="black-key" height="106.39999" width="25" y="82.44969" x="127.60008" stroke-width="1.5" stroke="#000" fill="#000000"/>
+            <rect data-note="F#4" class="black-key" height="106.39999" width="25" y="82.44969" x="193.2001" stroke-width="1.5" stroke="#000" fill="#000000"/>
+            <rect data-note="G#4" class="black-key" height="106.39999" width="25" y="82.44969" x="238.00011" stroke-width="1.5" stroke="#000" fill="#000000"/>
+            <rect data-note="A#4" class="black-key" height="106.39999" width="25" y="82.44969" x="283.60012" stroke-width="1.5" stroke="#000" fill="#000000"/>
         </svg>
 
         <script src="scripts/index.js"></script>

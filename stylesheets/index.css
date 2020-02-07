@@ -8,10 +8,14 @@ Main colors:
     * #BCBDC1 (Accent 3)
 
 */
-:root
-{
+:root {
     --white-key-color: #fdfdfd;
+    --white-key-hover-color: #f0f0f0;
+    --white-key-active-color: #d0d0d0;
+
     --black-key-color: #222222;
+    --black-key-hover-color: #181818;
+    --black-key-active-color: #020202;
 }
 
 html {
@@ -19,3 +23,26 @@ html {
     color: #222222;
 }
 
+.piano .white-key {
+    fill: --white-key-color;
+}
+
+.piano .white-key:hover {
+    fill: var(--white-key-hover-color);
+}
+
+.piano .white-key:active {
+    fill: var(--white-key-active-color);
+}
+
+.piano .black-key {
+    fill: --black-key-color;
+}
+
+.piano .black-key:hover {
+    fill: var(--black-key-hover-color);
+}
+
+.piano .black-key:active {
+    fill: var(--black-key-active-color);
+}

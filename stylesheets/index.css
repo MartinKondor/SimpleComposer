@@ -8,3 +8,14 @@ Main colors:
     * #BCBDC1 (Accent 3)
 
 */
+:root
+{
+    --white-key-color: #fdfdfd;
+    --black-key-color: #222222;
+}
+
+html {
+    background-color: #fdfdfd;
+    color: #222222;
+}
+

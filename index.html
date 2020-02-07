@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Simple Composer</title>
+
+        <!-- Libraries -->
+        <script src="lib/jquery-3.4.1.min.js"></script>
+        <script src="lib/popper-v1.16.0.min.js"></script>
+        <script src="lib/bootstrap-v4-4-1.min.js"></script>
+        <link rel="stylesheet" href="lib/bootstrap-v4-4-1.min.css">
+        <script src="https://unpkg.com/react@15/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+        <script src="lib/babel.min.js"></script>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="stylesheets/index.css">
+    </head>
+    <body>
+        <div id="root">
+            <!-- Managed by React. -->
+        </div>
+
+        <script type="text/babel">
+            class Test extends React.Component
+            {
+                render()
+                {
+                    return (
+                        <h1>{this.props.param}</h1>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+                <Test param="Test param." />,
+                document.getElementById('root')
+            );
+        </script>
+    </body>
+</html>

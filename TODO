@@ -1,8 +1,10 @@
-[] Playable keyboard
+[x] Playable keyboard
+[x] Metronome
 [] Scale helper:
     * Show the keyboard with the scale's notes highlighted and notated.
     * Play scale (in reverse too)
 [] Chord progression suggester
     * Show chords on the keyboard
     * Play chords
-[] Metronome
+[] Save chord progressions
+[] Show chords in a little window when hovered

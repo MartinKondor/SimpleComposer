@@ -6,9 +6,10 @@ Main colors:
     * #FFFFFF (Accent 1)
     * #D6D7D9 (Accent 2)
     * #BCBDC1 (Accent 3)
-
 */
 :root {
+    --light-text-color: #424242;
+
     --white-key-color: #fdfdfd;
     --white-key-hover-color: #f0f0f0;
     --white-key-active-color: #d0d0d0;
@@ -19,13 +20,20 @@ Main colors:
 }
 
 html {
-    background-color: #fdfdfd;
+    background-color: #eeeeee;
     color: #222222;
-    padding: 42px;
+    padding: 5% 20% 5% 20%;
+}
+
+.subtitle {
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    color: var(--light-text-color);
+    border-bottom: 2px dotted var(--light-text-color);
 }
 
 .piano .white-key {
-    fill: --white-key-color;
+    fill: var(--white-key-color);
 }
 
 .piano .white-key:hover {
@@ -37,7 +45,7 @@ html {
 }
 
 .piano .black-key {
-    fill: --black-key-color;
+    fill: var(--black-key-color);
 }
 
 .piano .black-key:hover {
@@ -51,4 +59,21 @@ html {
 .btn {
     font-weight: bold;
     border-radius: 0%;
+}
+
+#metronome-box,
+#chords-box {
+    padding: 30px;
+}
+
+@media screen and (max-width: 1000px) {
+    html {
+        padding: 1% 10% 1% 10% !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    html {
+        padding: 0% 0% 0% 0% !important;
+    }
 }

@@ -10,32 +10,53 @@
         <script src="lib/jquery-3.4.1.min.js"></script>
         <script src="lib/popper-v1.16.0.min.js"></script>
         <script src="lib/bootstrap-v4-4-1.min.js"></script>
-        <!--
-        <script src="lib/react.min.js"></script>
-        <script src="lib/react-dom.min.js"></script>
-        <script src="lib/babel.min.js"></script>
-        -->
         <script src="lib/tone.js"></script>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="stylesheets/index.css">
+        <link rel="stylesheet" href="stylesheets/index.css">        
     </head>
     <body>
-        <svg class="piano" width="580" height="400" xmlns="http://www.w3.org/2000/svg">
-            <rect data-note="C4" class="white-key" height="174.00001" width="39.2" y="81.45" x="55" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="D4" class="white-key" height="174.00001" width="39.2" y="81.45" x="94.20002" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="E4" class="white-key" height="174.00001" width="39.2" y="81.45" x="133.40002" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="F4" class="white-key" height="174.00001" width="39.2" y="81.45" x="172.60005" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="G4" class="white-key" height="174.00001" width="39.2" y="81.45" x="211.80005" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="A4" class="white-key" height="174.00001" width="39.2" y="81.45" x="251.00007" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="B4" class="white-key" height="174.00001" width="39.2" y="81.45" x="290.20007" stroke-width="1.5" stroke="#000" fill="#fff"/>
-            <rect data-note="C#4" class="black-key" height="106.39999" width="25" y="82.44969" x="74.80006" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="D#4" class="black-key" height="106.39999" width="25" y="82.44969" x="127.60008" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="F#4" class="black-key" height="106.39999" width="25" y="82.44969" x="193.2001" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="G#4" class="black-key" height="106.39999" width="25" y="82.44969" x="238.00011" stroke-width="1.5" stroke="#000" fill="#000000"/>
-            <rect data-note="A#4" class="black-key" height="106.39999" width="25" y="82.44969" x="283.60012" stroke-width="1.5" stroke="#000" fill="#000000"/>
-        </svg>
+        <h2 class="mb-4">Metronome</h2>
 
+        <div class="form-inline mb-3">
+            <div class="form-group">
+                <label for="metronome_bpm_input" class="mr-3">BPM</label>
+                
+                <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary btn-sm">+</button>
+                <input id="metronome_bpm_input" type="text" class="form-control mr-1 ml-1" maxlength="3" size="3" placeholder="BPM">
+                <button id="metronome_bpm_minus_btn" class="btn btn-outline-secondary btn-sm">-</button>
+            </div>
+        </div>
+
+        <button id="metronome_start_btn" class="btn btn-primary">START</button>
+        <button id="metronome_tap_btn" class="btn btn-secondary">TAP</button>
+        <br>
+
+        <!--
+        <div class="row">
+            <div class="col-sm">
+
+                <svg class="piano" width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+                    <rect data-note="C4" class="white-key" height="174.00001" width="39.2" y="81.45" x="0" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="D4" class="white-key" height="174.00001" width="39.2" y="81.45" x="39.20002" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="E4" class="white-key" height="174.00001" width="39.2" y="81.45" x="78.40002" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="F4" class="white-key" height="174.00001" width="39.2" y="81.45" x="117.60005" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="G4" class="white-key" height="174.00001" width="39.2" y="81.45" x="156.80005" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="A4" class="white-key" height="174.00001" width="39.2" y="81.45" x="196.00007" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="B4" class="white-key" height="174.00001" width="39.2" y="81.45" x="235.20007" stroke-width="1.5" stroke="#000" fill="#fff"/>
+                    <rect data-note="C#4" class="black-key" height="106.39999" width="25" y="82.44969" x="19.80006" stroke-width="1.5" stroke="#000" fill="#000000"/>
+                    <rect data-note="D#4" class="black-key" height="106.39999" width="25" y="82.44969" x="72.60008" stroke-width="1.5" stroke="#000" fill="#000000"/>
+                    <rect data-note="F#4" class="black-key" height="106.39999" width="25" y="82.44969" x="138.2001" stroke-width="1.5" stroke="#000" fill="#000000"/>
+                    <rect data-note="G#4" class="black-key" height="106.39999" width="25" y="82.44969" x="183.00011" stroke-width="1.5" stroke="#000" fill="#000000"/>
+                    <rect data-note="A#4" class="black-key" height="106.39999" width="25" y="82.44969" x="228.60012" stroke-width="1.5" stroke="#000" fill="#000000"/>
+                </svg>
+
+            </div>
+        </div>
+        -->
+
+        <!-- Scripts -->
         <script src="scripts/index.js"></script>
+
     </body>
 </html>

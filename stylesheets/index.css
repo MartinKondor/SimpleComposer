@@ -21,6 +21,7 @@ Main colors:
 html {
     background-color: #fdfdfd;
     color: #222222;
+    padding: 42px;
 }
 
 .piano .white-key {
@@ -45,4 +46,9 @@ html {
 
 .piano .black-key:active {
     fill: var(--black-key-active-color);
+}
+
+.btn {
+    font-weight: bold;
+    border-radius: 0%;
 }

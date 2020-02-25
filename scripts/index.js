@@ -9,7 +9,7 @@
     let metronome_tap_timer = 0;
     let metronome_function_interval;
 
-    let keyboardSvg = `
+    /*
     <svg class="piano" width="810" height="400" xmlns="http://www.w3.org/2000/svg">
         <rect data-note="C3" class="white-key" height="174.00001" width="39.2" y="81.45" x="0" stroke-width="1.5" stroke="#000" fill="#fff"/>
         <rect data-note="D3" class="white-key" height="174.00001" width="39.2" y="81.45" x="39.20002" stroke-width="1.5" stroke="#000" fill="#fff"/>
@@ -51,7 +51,7 @@
         <rect data-note="A#5" class="black-key" height="106.39999" width="25" y="82.44969" x="763.80036" stroke-width="1.5" stroke="#000" fill="#000000"/>  
 
     </svg>
-    `;
+    */
 
     const buildKey = (note, props) => 
     {
@@ -67,7 +67,9 @@
 
     const buildKeyboard = (fromOctave=3, toOctave=5, whiteKeyWidth='39.2', whiteKeyHeight='174.00001', blackKeyWidth='25', blackKeyHeight='106.39999') =>
     {
-        let keys = '';
+        let blackKeys = [];
+        let whiteKeys = [];
+        
         let noteNames = [
             'C', 'D', 'E', 'F', 'G', 'A', 'B',
             'C#', 'D#', 'F#', 'G#', 'A#'
@@ -90,7 +92,7 @@
             {
                 let keyType = noteNames[i].indexOf('#') != -1 ? 'black-key' : 'white-key';
 
-                keys += buildKey(noteNames[i] + new String(octave), {
+                (keyType == 'black-key' ? blackKeys : whiteKeys).push(buildKey(noteNames[i] + new String(octave), {
                     class: keyType,
                     height: keyType == 'black-key' ? blackKeyHeight : whiteKeyHeight,
                     width: keyType == 'black-key' ? blackKeyWidth : whiteKeyWidth,
@@ -99,7 +101,7 @@
                     stroke_width: '0.5',
                     stroke: '#000',
                     fill: '#000000'
-                });
+                }));
 
                 lastX += keyType == 'black-key' ? 0 : parseFloat(whiteKeyWidth) + 2;
             }
@@ -111,7 +113,8 @@
             }
         }
 
-        return '<svg class="piano" width="' + new String(lastX + 1) + '" height="400" xmlns="http://www.w3.org/2000/svg">' + keys + '</svg>'
+        // Place black keys over the white keys
+        return '<svg class="piano" width="' + new String(lastX + 1) + '" height="400" xmlns="http://www.w3.org/2000/svg">' + (whiteKeys.concat(blackKeys)).join(' ') + '</svg>'
     }
 
     /*
@@ -132,6 +135,12 @@
     const playNote = (note) =>
     {
         SYNTH.triggerAttackRelease(note, '8n');
+    }
+
+    // Highligth note on the keyboard
+    const highlightNote = (note) => 
+    {
+        
     }
 
     // Play sound on piano interaction
@@ -196,21 +205,17 @@
         `);
     });
 
-
     // Run immediately
     setBPM(BPM);
 
     // Scale the keyboard to the screen size
     if ($(window).width() < 1462)
     {
-        
-
         $('#keyboard').html(buildKeyboard(3, 5, '19.6', '174.00001', '12.5', '106.39999'));
     }
     else
     {
         $('#keyboard').html(buildKeyboard());
     }
-    
 
 })(jQuery);

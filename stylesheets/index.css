@@ -1,15 +1,14 @@
 /**
-
-Main colors:
-    * #E9E9EA (Foreground)
-    * #161C29 (Background)
-    * #FFFFFF (Accent 1)
-    * #D6D7D9 (Accent 2)
-    * #BCBDC1 (Accent 3)
+Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
 */
 :root
 {
+    --bg-color: #ffffff;
+    --box-bg-color: #ffffff;
+
+    --text-color: #E9E9EA;
     --light-text-color: #424242;
+    --light2-text-color: #5f5f5f;
 
     --white-key-color: #fdfdfd;
     --white-key-hover-color: #f0f0f0;
@@ -25,8 +24,34 @@ html
     height: 100%;
     width: 100%;
     background-color: #eeeeee;
-    color: #222222;
-    padding: 5% 20% 5% 20%;
+    color: var(--text-color);
+    padding: 2% 20% 2% 20%;
+
+    /*
+    background: url('');
+    background-repeat: no-repeat;
+    background-size: cover;
+    */
+}   
+
+div 
+{
+    background-color: var(--bg-color);
+}
+
+footer
+{
+    color: var(--light-text-color);
+    padding: 10px;
+}
+
+/*
+Override bootstrap defaults
+*/
+.btn
+{
+    font-weight: bold;
+    border-radius: 0%;
 }
 
 .subtitle
@@ -37,10 +62,17 @@ html
     border-bottom: 2px dotted var(--light-text-color);
 }
 
+.subsubtitle
+{
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    color: var(--light2-text-color);
+}
+
 /* Keyboard */
 .keyboard
 {
-    height: 100%;
+    height: 15vw;
     display: -webkit-box;
     display: flex;
     margin: auto;
@@ -48,9 +80,16 @@ html
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
+
+    /*display: none;*/
 }
 
-.key
+.hidden
+{
+    display: none;
+}
+
+.keyboard .key
 {
     float: left;
     position: relative;
@@ -107,16 +146,22 @@ html
     border-right: 0.12vw solid #AAAAAA;
 }
 
-.btn
-{
-    font-weight: bold;
-    border-radius: 0%;
-}
-
 #metronome-box,
 #chords-box
 {
     padding: 30px;
+}
+
+#key-box 
+{
+    position: absolute;
+    z-index: 9;
+    background-color: var(--box-bg-color);
+    border: 0.5px solid #d3d3d3;
+    text-align: center;
+    width: 750px;
+    height: 425px;
+    box-shadow: 0px 0px 10px #242424;
 }
 
 @media screen and (max-width: 1000px)

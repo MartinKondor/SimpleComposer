@@ -1,4 +1,4 @@
-# 🎵 SimpleComposer
+# 🎵 SimpleComposer 🎹
 
 [![version](https://img.shields.io/badge/version-v0.1.0-red.svg)](https://github.com/MartinKondor/SimpleComposer) [![Project Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/MartinKondor/SimpleComposer) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/SimpleComposer.svg)](https://github.com/MartinKondor/SimpleComposer/issues)
 

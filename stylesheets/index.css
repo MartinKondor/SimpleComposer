@@ -7,7 +7,8 @@ Main colors:
     * #D6D7D9 (Accent 2)
     * #BCBDC1 (Accent 3)
 */
-:root {
+:root
+{
     --light-text-color: #424242;
 
     --white-key-color: #fdfdfd;
@@ -19,61 +20,117 @@ Main colors:
     --black-key-active-color: #020202;
 }
 
-html {
+html
+{
+    height: 100%;
+    width: 100%;
     background-color: #eeeeee;
     color: #222222;
     padding: 5% 20% 5% 20%;
 }
 
-.subtitle {
+.subtitle
+{
     margin-bottom: 30px;
     padding-bottom: 10px;
     color: var(--light-text-color);
     border-bottom: 2px dotted var(--light-text-color);
 }
 
-.piano .white-key {
-    fill: var(--white-key-color);
+/* Keyboard */
+.keyboard
+{
+    height: 100%;
+    display: -webkit-box;
+    display: flex;
+    margin: auto;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
 }
 
-.piano .white-key:hover {
-    fill: var(--white-key-hover-color);
+.key
+{
+    float: left;
+    position: relative;
 }
 
-.piano .white-key:active {
-    fill: var(--white-key-active-color);
+.keyboard .white
+{
+    height: 14.4vw;
+    width: 3.8095238095vw;
+    z-index: 1;
+    border-top: 0.12vw solid rgb(224, 224, 224);
+    border-bottom: 0.12vw solid rgb(224, 224, 224);
+    border-left: 0.12vw solid rgb(224, 224, 224);
+    background-color: var(--white-key-color);
 }
 
-.piano .black-key {
-    fill: var(--black-key-color);
+.keyboard .white:hover
+{
+    background-color: var(--white-key-hover-color);
 }
 
-.piano .black-key:hover {
-    fill: var(--black-key-hover-color);
+.keyboard .white:active
+{
+    background-color: var(--white-key-active-color);
 }
 
-.piano .black-key:active {
-    fill: var(--black-key-active-color);
+.keyboard .black
+{
+    top: -2.75vw;
+    height: 8.92vw;
+    width: 2.0952380952vw;
+    z-index: 2;
+    border: 0.12vw solid var(--black-key-color);
+    background-color: var(--black-key-color);
 }
 
-.btn {
+.keyboard .black:hover
+{
+    background-color: var(--black-key-hover-color);
+}
+
+.keyboard .black:active
+{
+    background-color: var(--black-key-active-color);
+}
+
+.a, .b, .d, .e, .g, .black
+{
+    margin: 0 0 0 -1.1676190476vw;
+}
+
+.keyboard > .note:last-child
+{
+    border-right: 0.12vw solid #AAAAAA;
+}
+
+.btn
+{
     font-weight: bold;
     border-radius: 0%;
 }
 
 #metronome-box,
-#chords-box {
+#chords-box
+{
     padding: 30px;
 }
 
-@media screen and (max-width: 1000px) {
-    html {
+@media screen and (max-width: 1000px)
+{
+    html
+    {
         padding: 1% 10% 1% 10% !important;
     }
 }
 
-@media screen and (max-width: 500px) {
-    html {
+@media screen and (max-width: 500px)
+{
+    html
+    {
         padding: 0% 0% 0% 0% !important;
     }
 }

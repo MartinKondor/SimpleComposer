@@ -121,6 +121,7 @@
         `);
     });
 
+
     /**
      * Keyboard
      */
@@ -138,7 +139,10 @@
     }
 
 
-    // Key box functions
+    /**
+     * Key box
+     */
+     
     $('#key_box_hider').on('click', () =>
     {
         $('#key-box').toggleClass('hidden');
@@ -172,9 +176,10 @@
     {
         let baseNote = $('#current_chord_chord_base_note_input').val();
         let type = $('#current_chord_chord_type_input').val();
+        let inversion = parseInt($('#current_chord_chord_type_input').val());
 
         let baseIndex = NOTES.indexOf(baseNote);
-        let notes = [baseNote + '4'];
+        let notes = [baseNote + (inversion == 0 ? '4' : '5')];
 
         if (type == 'M')
         {
@@ -201,6 +206,7 @@
         {
             key.removeClass('highlighted-key');
         }
+        highlightedChordKeys = [];
 
         for (let note of notes)
         {
@@ -208,16 +214,24 @@
             highlightedChordKeys.push(key);
             key.addClass('highlighted-key');
         }
-
-        console.log(notes);
     }
 
     $('#current_chord_chord_base_note_input').change(updateCurrentChord);
     $('#current_chord_chord_type_input').change(updateCurrentChord);
+    $('#current_chord_chord_inversion_input').change(updateCurrentChord);
+
+    $('#current_chord_play_button').on('click', () =>
+    {
+        for (let key of highlightedChordKeys)
+        {
+            playNote(key[0].getAttribute('data-note'));
+        }
+    });
 
 
     // Run immediately
     setBPM(BPM);
     $('#key-box').draggable();
+    updateCurrentChord();
 
 })(jQuery);

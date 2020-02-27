@@ -10,6 +10,8 @@ Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
     --light-text-color: #424242;
     --light2-text-color: #5f5f5f;
 
+    --highlighted-key-color: #e03131;
+
     --white-key-color: #fdfdfd;
     --white-key-hover-color: #f0f0f0;
     --white-key-active-color: #d0d0d0;
@@ -80,8 +82,11 @@ Override bootstrap defaults
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
+}
 
-    /*display: none;*/
+.highlighted-key
+{
+    background-color: #e03131 !important;
 }
 
 .hidden

@@ -9,6 +9,7 @@
     let metronome_can_play = false;
     let metronome_tap_timer = 0;
     let metronome_function_interval;
+    let highlightedChordKeys = [];
 
 
     // Load keyboards
@@ -158,12 +159,12 @@
     {
         let octave = new String(baseOctave);
 
-        if (baseIndex + interval > 12)
+        if (baseIndex + interval >= 12)
         {
             octave = new String(parseInt(octave) + 1);
-            baseIndex = Math.abs(baseIndex - 12);
+            baseIndex = baseIndex - 12;
         }
-        
+    
         return NOTES[baseIndex + interval] + octave;
     }
 
@@ -173,9 +174,7 @@
         let type = $('#current_chord_chord_type_input').val();
 
         let baseIndex = NOTES.indexOf(baseNote);
-        let currentInterval = 0;
         let notes = [baseNote + '4'];
-        let octave = '';
 
         if (type == 'M')
         {
@@ -184,15 +183,30 @@
         }
         else if (type == 'm')
         {
-            
+            notes.push(getNoteByInterval(baseIndex, 3));
+            notes.push(getNoteByInterval(baseIndex, 7));
         }
         else if (type == 'aug')
         {
-            
+            notes.push(getNoteByInterval(baseIndex, 4));
+            notes.push(getNoteByInterval(baseIndex, 8));
         }
         else if (type == 'dim')
         {
-            
+            notes.push(getNoteByInterval(baseIndex, 3));
+            notes.push(getNoteByInterval(baseIndex, 8));
+        }
+
+        for (let key of highlightedChordKeys)
+        {
+            key.removeClass('highlighted-key');
+        }
+
+        for (let note of notes)
+        {
+            let key = $('#chords_keyboard > .key[data-note="' + note + '"]');
+            highlightedChordKeys.push(key);
+            key.addClass('highlighted-key');
         }
 
         console.log(notes);

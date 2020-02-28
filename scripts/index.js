@@ -176,29 +176,29 @@
     {
         let baseNote = $('#current_chord_chord_base_note_input').val();
         let type = $('#current_chord_chord_type_input').val();
-        let inversion = parseInt($('#current_chord_chord_type_input').val());
+        let inversion = parseInt($('#current_chord_chord_inversion_input').val());
 
         let baseIndex = NOTES.indexOf(baseNote);
         let notes = [baseNote + (inversion == 0 ? '4' : '5')];
 
         if (type == 'M')
         {
-            notes.push(getNoteByInterval(baseIndex, 4));
+            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 4 + 12 : 4));
             notes.push(getNoteByInterval(baseIndex, 7));
         }
         else if (type == 'm')
         {
-            notes.push(getNoteByInterval(baseIndex, 3));
+            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 3 + 12 : 3));
             notes.push(getNoteByInterval(baseIndex, 7));
         }
         else if (type == 'aug')
         {
-            notes.push(getNoteByInterval(baseIndex, 4));
+            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 4 + 12 : 4));
             notes.push(getNoteByInterval(baseIndex, 8));
         }
         else if (type == 'dim')
         {
-            notes.push(getNoteByInterval(baseIndex, 3));
+            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 3 + 12 : 3));
             notes.push(getNoteByInterval(baseIndex, 8));
         }
 

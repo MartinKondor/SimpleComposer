@@ -181,7 +181,29 @@
     /**
      * Key box
      */
-     
+    const romanizeNumber = (num) => {
+        if (isNaN(num))
+        {
+            return NaN;
+        }
+
+        let digits = String(+num).split('');
+        let key = [
+            "","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+            "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+            "","I","II","III","IV","V","VI","VII","VIII","IX"
+        ];
+        let roman = '';
+        let i = 3;
+        
+        while (i--)
+        {
+            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+        }
+
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
+
     const updateKeyBox = () => 
     {
         let baseNote = $('#key_base_note').val();
@@ -192,6 +214,7 @@
         let octave = currentOctave;
         let notes = []; 
         let notesOfTheScaleString = '';
+        let notesOfTheScaleLevelCounter = 0;
 
         if (mode == 'Ionian')
         {
@@ -257,8 +280,20 @@
             let key = $('#key_keyboard > .key[data-note="' + note + '"]');
             highlightedKeyKeys.push(key);
             key.addClass('highlighted-key');
-            notesOfTheScaleString += note + ', ';
+            notesOfTheScaleString += note + ' (' + new String(romanizeNumber(++notesOfTheScaleLevelCounter)) + '), ';
+        
+            // Update chord names in the option box
+            // $('#current_chord_chord_base_note_input > option[value="' + (note[1] == '#' ? note.substring(0, 2) : note[0]) + '"]').html(note + ' (' + new String(rn) + ')')
+            // console.log('#current_chord_chord_base_note_input > option[value="' + (note[1] == '#' ? note.substring(0, 2) : note[0]) + '"]');
         }
+
+        /*
+        let optionElements = $('#current_chord_chord_base_note_input > option');
+        for (let i = 0; i < notes.length; i++) 
+        {
+            optionElement.innerHTML = notes[i] + ' (' + new String(romanizeNumber(i)) + ')';
+        }
+        */
 
         // Print out notes of the scale
         $('#scale_notes_string').html(notesOfTheScaleString.substring(0, notesOfTheScaleString.length - 2));

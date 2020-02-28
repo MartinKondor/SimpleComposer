@@ -10,10 +10,31 @@
     let metronomeFunctionInterval;  // Stores the metronome interval for later cleaning up
 
     let currentOctave = 4;
+    let highlightedKeyKeys = [];
     let highlightedChordKeys = [];  // The highlighted keys (DOM elements) on the keyboard
     let chordProgressionList = [];  // Chord classes
     let currentChord = null;  // Chord class
 
+
+    const download = (blob, name) =>
+    {
+        let url = URL.createObjectURL(blob);
+        let div = document.createElement('div');
+        let anch = document.createElement('a');
+
+        document.body.appendChild(div);
+        div.appendChild(anch);
+
+        anch.innerHTML = '&nbsp;';
+        div.style.width = '0';
+        div.style.height = '0';
+        anch.href = url;
+        anch.download = name;
+        
+        let ev = new MouseEvent('click', {});
+        anch.dispatchEvent(ev);
+        document.body.removeChild(div);
+    }
 
     const createKeyboard = (middleOctave) =>
     {   
@@ -136,6 +157,8 @@
     // Play note with Tone.js
     const playNote = (note) =>
     { 
+        SYNTH.triggerAttackRelease(note, '8n');
+        /*
         let noteName = note[0];
 
         if (note[1] == '#')
@@ -144,6 +167,7 @@
         }
 
         SYNTH.triggerAttackRelease(noteName + new String(currentOctave), '8n');
+        */
     }
 
 
@@ -151,7 +175,8 @@
      * Key box
      */
      
-    $('#key_box_hider').on('click', () =>
+    /*
+     $('#key_box_hider').on('click', () =>
     {
         $('#key-box').toggleClass('hidden');
         $('#key_box_shower').toggleClass('hidden');
@@ -162,6 +187,49 @@
         $('#key-box').toggleClass('hidden');
         $('#key_box_shower').toggleClass('hidden');
     });
+    */
+    const updateKeyBox = () => 
+    {
+        let baseNote = $('#key_base_note').val();
+        let mode = $('#key_mode_input').val();
+        let notes = []
+
+        if (mode == 'Ionian')
+        {}
+        else if (mode == 'Dorian')
+        {
+            // w w h w w w h w
+
+        }
+        else if (mode == 'Phrygian')
+        {}
+        else if (mode == 'Lydian')
+        {}
+        else if (mode == 'Mixolydian')
+        {}
+        else if (mode == 'Aeolian')
+        {}
+        else if (mode == 'Lorcrian')
+        {}
+
+        // Remove highlight from previous keys
+        for (let key of highlightedKeyKeys)
+        {
+            key.removeClass('highlighted-key');
+        }
+        highlightedKeyKeys = [];
+
+        // Highlight current keys
+        for (let note of notes)
+        {
+            let key = $('#key_keyboard > .key[data-note="' + note + '"]');
+            highlightedKeyKeys.push(key);
+            key.addClass('highlighted-key');
+        }
+    }
+
+    $('#key_base_note').change(updateKeyBox);
+    $('#key_mode_input').change(updateKeyBox);
 
     // Key octave
     $('#key_octave_input').change(() => 
@@ -272,7 +340,35 @@
     // Saves the current chord progression
     $('#chord_progression_save_btn').on('click', () =>
     {
-        // TODO
+        let textData = 'From https://martinkondor.github.io/SimpleComposer/\n';
+        let counter = 1;
+        let date = new Date();
+
+        // Save the date
+        textData += new String(new Date()) + '\n\n'
+
+        // Save the key
+        textData += '# Key\n';
+        textData += 'Base note: ' + $('#key_base_note').val() + '\n';
+        textData += 'Mode: ' + $('#key_mode_input').val() + '\n\n';
+
+        textData += '# Chord progression\n';
+
+        for (let currentChordInProgression of chordProgressionList)
+        {
+            textData += new String(counter++) + ': ' +
+                    currentChordInProgression.name +
+                    ', notes: ' +
+                    new String(currentChordInProgression.notes) + '\n';
+        }
+
+        let blob = new Blob([textData], {type: 'text/plain'});
+        let fileName = new String(date.getFullYear()) + '-' +
+                        new String(date.getMonth() + 1) + '-' +
+                        new String(date.getDate()) + '#' +
+                        new String(date.getHours()) + '_' +
+                        new String(date.getMinutes()) + '.txt';
+        download(blob, fileName);
     });
 
     // Removes the current chord progression
@@ -286,7 +382,7 @@
     // Run immediately
     setBPM(BPM);
     setOctave(currentOctave);
-    $('#key-box').draggable();
     updateCurrentChord();
-
+    updateKeyBox();
+ 
 })(jQuery);

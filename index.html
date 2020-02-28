@@ -25,70 +25,6 @@
             <i class="far fa-eye"></i> Key
         </button>
 
-        <div id="key-box" class="hidden">
-            <div class="text-right">
-                <button id="key_box_hider" title="Furl the box" class="btn btn-sm btn-secondary">
-                    <i class="far fa-eye-slash"></i>
-                </button>
-            </div>
-
-            <h2 class="subtitle font-weight-bold">Key</h2>
-
-            <div class="keyboard"></div>
-
-            <div class="row mb-3">
-
-                <div class="col-sm">
-                    <div class="form-inline">
-                        <label for="key_base_note" class="mr-3">Base note</label>
-    
-                        <select id="key_base_note" class="form-control">
-                            <option value="C">C</option>
-                            <option value="C#">C#</option>
-                            <option value="D">D</option>
-                            <option value="D#">D#</option>
-                            <option value="E">E</option>
-                            <option value="F">F</option>
-                            <option value="F#">F#</option>
-                            <option value="G">G</option>
-                            <option value="G#">G#</option>
-                            <option value="A">A</option>
-                            <option value="A#">A#</option>
-                            <option value="B">B</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-sm">
-                    <div class="form-inline">
-                        <label for="key_mode_input" class="mr-3">Mode</label>
-
-                        <select id="key_mode_input" class="form-control">
-                            <option value="1">Ionian</option>
-                            <option value="2">Dorian</option>
-                            <option value="3">Phrygian</option>
-                            <option value="4">Lydian</option>
-                            <option value="5">Mixolydian</option>
-                            <option value="6">Aeolian</option>
-                            <option value="7">Lorcrian</option>
-                        </select>
-                    </div>
-                </div>
-
-                <dov class="col-sm">
-                    <div class="form-inline">
-                        <label for="key_octave_input" class="mr-3">Octave</label>
-
-                        <button id="key_octave_plus_btn" class="btn btn-outline-secondary">+</button>
-                        <input id="key_octave_input" type="text" class="form-control mr-1 ml-1" maxlength="2" size="2" placeholder="..">
-                        <button id="key_octave_minus_btn" class="btn btn-outline-secondary">-</button>
-                    </div>
-                </dov>
-
-            </div>
-
-        </div>
-
         <div class="container-fluid">
 
             <!--
@@ -116,6 +52,68 @@
                     <i class="far fa-hand-point-up"></i>
                     Tap
                 </button>
+            </div>
+
+            <br>
+
+            <div id="key-box">
+                <h2 class="subtitle font-weight-bold">Key</h2>
+    
+                <div id="key_keyboard" class="keyboard"></div>
+    
+                <br>
+
+                <div class="row mb-3">
+    
+                    <div class="col-sm">
+                        <div class="form-inline">
+                            <label for="key_base_note" class="mr-3">Base note</label>
+        
+                            <select id="key_base_note" class="form-control">
+                                <option value="C">C</option>
+                                <option value="C#">C#</option>
+                                <option value="D">D</option>
+                                <option value="D#">D#</option>
+                                <option value="E">E</option>
+                                <option value="F">F</option>
+                                <option value="F#">F#</option>
+                                <option value="G">G</option>
+                                <option value="G#">G#</option>
+                                <option value="A">A</option>
+                                <option value="A#">A#</option>
+                                <option value="B">B</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-sm">
+                        <div class="form-inline">
+                            <label for="key_mode_input" class="mr-3">Mode</label>
+    
+                            <select id="key_mode_input" class="form-control">
+                                <option value="Ionian">Ionian</option>
+                                <option value="Dorian">Dorian</option>
+                                <option value="Phrygian">Phrygian</option>
+                                <option value="Lydian">Lydian</option>
+                                <option value="Mixolydian">Mixolydian</option>
+                                <option value="Aeolian">Aeolian</option>
+                                <option value="Lorcrian">Lorcrian</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <dov class="col-sm">
+                        <div class="form-inline">
+                            <label for="key_octave_input" class="mr-3">Octave</label>
+    
+                            <button id="key_octave_plus_btn" class="btn btn-outline-secondary">+</button>
+                            <input id="key_octave_input" type="text" class="form-control mr-1 ml-1" maxlength="2" size="2" placeholder="..">
+                            <button id="key_octave_minus_btn" class="btn btn-outline-secondary">-</button>
+                        </div>
+                    </dov>
+    
+                </div>
+    
             </div>
 
             <br>
@@ -208,12 +206,10 @@
                         <i class="far fa-play-circle"></i>
                         Play
                     </button>
-                    <!--
                     <button id="chord_progression_save_btn" class="btn btn-secondary mr-1" title="Save the current chord progression">
                         <i class="far fa-save"></i>
                         Save
                     </button>
-                    -->
                     <button id="chord_progression_clear_btn" class="btn btn-danger mr-1" title="Remove all chords from progression">
                         <i class="fas fa-trash-alt"></i>
                         Clear

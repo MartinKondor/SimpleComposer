@@ -89,7 +89,7 @@
 
                 <div class="form-inline mb-3">
                     <div class="form-group">
-                        <label for="metronome_bpm_input" class="mr-3">BPM</label>
+                        <label for="metronome_bpm_input" class="mr-3" placeholder="BPM">BPM</label>
 
                         <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary">+</button>
                         <input id="metronome_bpm_input" type="text" class="form-control mr-1 ml-1" maxlength="3" size="3" placeholder="BPM">
@@ -97,8 +97,14 @@
                     </div>
                 </div>
 
-                <button id="metronome_start_btn" class="btn btn-primary">START</button>
-                <button id="metronome_tap_btn" class="btn btn-secondary">TAP</button>
+                <button id="metronome_start_btn" class="btn btn-primary">
+                    <i class="far fa-play-circle"></i>
+                    Start
+                </button>
+                <button id="metronome_tap_btn" class="btn btn-secondary">
+                    <i class="far fa-hand-point-up"></i>
+                    Tap
+                </button>
             </div>
 
             <br>
@@ -159,35 +165,62 @@
                     </div>
 
                     <div class="col-sm">
-                        <button id="current_chord_play_button" class="btn btn-primary">
-                            <i class="far fa-play-circle"></i>
-                            Play
-                        </button>
+                        <div class="form-inline mb-3">
+                            <button id="chords_chord_input_add_btn" class="btn btn-block btn-primary" title="Add the current chord to the chord progression list">
+                                <i class="fas fa-plus"></i>
+                                Add to progression
+                            </button>
+                            <button id="current_chord_play_btn" class="btn btn-block btn-secondary" title="Play the current chord">
+                                <i class="far fa-play-circle"></i>
+                                Play
+                            </button>
+                        </div>
                     </div>
 
                 </div>
 
-                <br><br>
+                <br>
 
                 <h3 class="subsubtitle">Chord progression</h3>
 
                 <!--
-                <div class="form-inline mb-3">
+                <div class="form-inline mb-4">
                     <label for="chords_chord_input">Add a chord</label>
-                    <input id="chords_chord_input" class="form-control mr-1 ml-4" type="text">
-                    <button id="chords_chord_input_add_btn" class="btn btn-sm btn-outline-secondary">Add</button>
+                    <input id="chords_chord_input" class="form-control mr-1 ml-4" type="text" size="20" placeholder="Chord name, e.g. Cmaj7, Cm">
+                    
+                    <button id="chords_chord_input_add_btn" class="btn btn-secondary ml-1">Show</button>
+                </div>
+                -->
+
+                <div class="form-inline mb-3">
+                    <button id="chord_progression_play_btn" class="btn btn-primary mr-1" title="Play the current chord progression">
+                        <i class="far fa-play-circle"></i>
+                        Play
+                    </button>
+                    <!--
+                    <button id="chord_progression_save_btn" class="btn btn-secondary mr-1" title="Save the current chord progression">
+                        <i class="far fa-save"></i>
+                        Save
+                    </button>
+                    -->
+                    <button id="chord_progression_clear_btn" class="btn btn-danger mr-1" title="Remove all chords from progression">
+                        <i class="fas fa-trash-alt"></i>
+                        Clear
+                    </button>
                 </div>
 
-                <ul id="chords-list"></ul>
-                -->
+                <ul id="chords-list">
+                    <i class="text-muted">Chords will appear here ...</i>
+                </ul>
                 
             </div>
         </div>
 
         <!-- Scripts -->
+        <script src="scripts/Chord.js"></script>
         <script src="scripts/index.js"></script>
 
-        <footer class="small">
+        <footer class="text-muted small">
             Copyright &copy; Martin Kondor. Made by <a href="https://martinkondor.github.io/">Martin Kondor</a>, <a href="mailto:martinkondor@gmail.com">martinkondor@gmail.com</a>.
         </footer>
 

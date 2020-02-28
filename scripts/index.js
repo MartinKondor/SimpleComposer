@@ -3,13 +3,15 @@
     const SYNTH = new Tone.Synth().toMaster();
     const METRONOME = new Tone.MembraneSynth().toMaster(); 
     const METRONOME_FUNCTION = () => METRONOME.triggerAttackRelease('F2', '16n');
-    const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
     let BPM = 130;
     let metronome_can_play = false;
-    let metronome_tap_timer = 0;
-    let metronome_function_interval;
-    let highlightedChordKeys = [];
+    let metronome_tap_timer = 0; 
+    let metronome_function_interval;  // Stores the metronome interval for later cleaning up
+
+    let highlightedChordKeys = [];  // The highlighted keys (DOM elements) on the keyboard
+    let chordProgressionList = [];  // Chord classes
+    let currentChord = null;  // Chord class
 
 
     // Load keyboards
@@ -69,19 +71,29 @@
     $('#metronome_start_btn').on('click', (e) =>
     {
         metronome_can_play = !metronome_can_play;
-        $('#metronome_start_btn').toggleClass('btn-outline-primary');
-        $('#metronome_start_btn').toggleClass('btn-outline-danger');
 
         if (metronome_can_play)
         {
             setBPM($('#metronome_bpm_input').val());
             metronome_function_interval = setInterval(METRONOME_FUNCTION, 1000 * 60 / BPM);
-            $('#metronome_start_btn').html('STOP');
+         
+            $('#metronome_start_btn').removeClass('btn-primary');
+            $('#metronome_start_btn').addClass('btn-danger');
+            $('#metronome_start_btn').html(`
+                <i class="far fa-play-circle"></i>
+                Stop
+            `);
         }
         else 
         {
             clearInterval(metronome_function_interval);
-            $('#metronome_start_btn').html('START');
+            
+            $('#metronome_start_btn').addClass('btn-primary');
+            $('#metronome_start_btn').removeClass('btn-danger');
+            $('#metronome_start_btn').html(`
+                <i class="far fa-play-circle"></i>
+                Start
+            `);
         }
     });
 
@@ -90,13 +102,16 @@
     {
         if (metronome_tap_timer > 0)
         {
-            $('#metronome_tap_btn').html('TAP');
+            $('#metronome_tap_btn').html(`
+                <i class="far fa-hand-point-up"></i>
+                Tap
+            `);
             $('#metronome_bpm_input').val(Math.floor(60 / ((Date.now() - metronome_tap_timer) / 1000)));
             metronome_tap_timer = 0;
         }
         else
         {
-            $('#metronome_tap_btn').html('. . . .');
+            $('#metronome_tap_btn').html('. . . . . .');
             metronome_tap_timer = Date.now();
         }
     });
@@ -109,16 +124,6 @@
     $('#metronome_bpm_minus_btn').on('click', () =>
     {
         setBPM(--BPM);
-    });
-
-    // Add a chord to the chord progression list
-    $('#chords_chord_input_add_btn').on('click', () =>
-    {
-        $('#chords-list').append(`
-        <li>
-            ${$('#chords_chord_input').val()}
-        </li>
-        `);
     });
 
 
@@ -159,56 +164,25 @@
     /**
      * Current chord
      */
-    function getNoteByInterval(baseIndex, interval, baseOctave=4)
-    {
-        let octave = new String(baseOctave);
-
-        if (baseIndex + interval >= 12)
-        {
-            octave = new String(parseInt(octave) + 1);
-            baseIndex = baseIndex - 12;
-        }
-    
-        return NOTES[baseIndex + interval] + octave;
-    }
-
     function updateCurrentChord()
     {
-        let baseNote = $('#current_chord_chord_base_note_input').val();
-        let type = $('#current_chord_chord_type_input').val();
-        let inversion = parseInt($('#current_chord_chord_inversion_input').val());
+        // Save current chord
+        currentChord = new Chord(
+            $('#current_chord_chord_base_note_input').val(),
+            $('#current_chord_chord_type_input').val(),
+            parseInt($('#current_chord_chord_inversion_input').val()),
+            4
+        );
 
-        let baseIndex = NOTES.indexOf(baseNote);
-        let notes = [baseNote + (inversion == 0 ? '4' : '5')];
-
-        if (type == 'M')
-        {
-            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 4 + 12 : 4));
-            notes.push(getNoteByInterval(baseIndex, 7));
-        }
-        else if (type == 'm')
-        {
-            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 3 + 12 : 3));
-            notes.push(getNoteByInterval(baseIndex, 7));
-        }
-        else if (type == 'aug')
-        {
-            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 4 + 12 : 4));
-            notes.push(getNoteByInterval(baseIndex, 8));
-        }
-        else if (type == 'dim')
-        {
-            notes.push(getNoteByInterval(baseIndex, inversion == 2 ? 3 + 12 : 3));
-            notes.push(getNoteByInterval(baseIndex, 8));
-        }
-
+        // Remove highlight from previous keys
         for (let key of highlightedChordKeys)
         {
             key.removeClass('highlighted-key');
         }
         highlightedChordKeys = [];
 
-        for (let note of notes)
+        // Highlight current keys
+        for (let note of currentChord.notes)
         {
             let key = $('#chords_keyboard > .key[data-note="' + note + '"]');
             highlightedChordKeys.push(key);
@@ -220,14 +194,76 @@
     $('#current_chord_chord_type_input').change(updateCurrentChord);
     $('#current_chord_chord_inversion_input').change(updateCurrentChord);
 
-    $('#current_chord_play_button').on('click', () =>
+    // Play the current chord
+    $('#current_chord_play_btn').on('click', () =>
     {
+        for (let note of currentChord.notes)
+        {
+            playNote(note);
+        }
+
+        /*
         for (let key of highlightedChordKeys)
         {
             playNote(key[0].getAttribute('data-note'));
         }
+        */
     });
 
+
+    /**
+     * Chord progression
+     */
+
+    // Add current chord to chord progression
+    $('#chords_chord_input_add_btn').on('click', () =>
+    {
+        if (chordProgressionList.length == 0)
+        {
+            $('#chords-list').html('');
+        }
+
+        chordProgressionList.push(currentChord);
+
+        $('#chords-list').append(`
+        <li>
+            <button class="chord-btn" data-chord-index="${chordProgressionList.length}">${currentChord.name}</button>
+        </li>
+        `);
+    });
+
+    // Plays the current chord progression
+    $('#chord_progression_play_btn').on('click', () =>
+    {
+        let timeout = 1000 * 60 / BPM;
+
+        // Play a chord on each beat 
+        for (let currentChordInProgression of chordProgressionList)
+        {
+            setTimeout(() =>
+            {
+
+                for (let note of currentChordInProgression.notes)
+                {
+                    playNote(note);
+                }
+
+            }, timeout);
+        }
+    });
+
+    // Saves the current chord progression
+    $('#chord_progression_save_btn').on('click', () =>
+    {
+        // TODO
+    });
+
+    // Removes the current chord progression
+    $('#chord_progression_clear_btn').on('click', () =>
+    {
+        chordProgressionList = [];
+        $('#chords-list').html('<i class="text-muted">Chords will appear here ...</i>');
+    });
 
     // Run immediately
     setBPM(BPM);

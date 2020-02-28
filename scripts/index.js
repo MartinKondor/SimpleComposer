@@ -175,42 +175,64 @@
      * Key box
      */
      
-    /*
-     $('#key_box_hider').on('click', () =>
-    {
-        $('#key-box').toggleClass('hidden');
-        $('#key_box_shower').toggleClass('hidden');
-    });
-
-    $('#key_box_shower').on('click', () =>
-    {
-        $('#key-box').toggleClass('hidden');
-        $('#key_box_shower').toggleClass('hidden');
-    });
-    */
     const updateKeyBox = () => 
     {
         let baseNote = $('#key_base_note').val();
+        let baseIndex = NOTES.indexOf(baseNote);
         let mode = $('#key_mode_input').val();
-        let notes = []
+        let steps = 'wwwhwwwh';
+        let currentIndex = baseIndex;
+        let octave = currentOctave;
+        let notes = [baseNote + new String(octave + 1)];  // Adding octave interval
 
         if (mode == 'Ionian')
-        {}
+        {
+            steps = 'wwhwwwh';
+        }
         else if (mode == 'Dorian')
         {
-            // w w h w w w h w
-
+            steps = 'whwwwhw';
         }
         else if (mode == 'Phrygian')
-        {}
+        {
+            steps = 'hwwwhww';
+        }
         else if (mode == 'Lydian')
-        {}
+        {
+            steps = 'wwwhwwh';
+        }
         else if (mode == 'Mixolydian')
-        {}
+        {
+            steps = 'wwhwwhw';
+        }
         else if (mode == 'Aeolian')
-        {}
+        {
+            steps = 'whwwhww';
+        }
         else if (mode == 'Lorcrian')
-        {}
+        {
+            steps = 'hwwhwww';
+        }
+
+        for (let step of steps)
+        {
+            if (currentIndex >= 12)
+            {
+                ++octave;
+                currentIndex = currentIndex - 12;
+            }
+
+            notes.push(NOTES[currentIndex] + new String(octave));
+
+            if (step == 'w')
+            {
+                currentIndex += 2;
+            }
+            else 
+            {
+                ++currentIndex;
+            }
+        }
 
         // Remove highlight from previous keys
         for (let key of highlightedKeyKeys)
@@ -232,7 +254,7 @@
     $('#key_mode_input').change(updateKeyBox);
 
     // Key octave
-    $('#key_octave_input').change(() => 
+    $('#key_octave_input').change(() =>
     {
         setOctave(parseInt($('#key_octave_input').val()));
     });

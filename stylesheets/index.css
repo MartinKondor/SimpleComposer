@@ -163,8 +163,8 @@ Keyboard
 
 .a, .b, .d, .e, .g, .black
 {
-    /*margin: 0 0 0 -1.1676190476vw;*/
-    margin: 0 0 0 -0.75vw;
+    margin: 0 0 0 -1.1676190476vw;
+    /*margin: 0 0 0 -0.75vw;*/
 }
 
 .keyboard > .note:last-child

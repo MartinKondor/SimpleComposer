@@ -23,7 +23,16 @@ class Chord
         this.baseNote = baseNote;
         this.type = type;
         this.inversion = inversion;
-        this.name = baseNote + type + new String(octave) + ' (' + new String(inversion) + ')'
+        this.name = baseNote + (type == 'M' ? '' : type) + new String(octave);
+
+        if (inversion == 1)
+        {   
+            this.name += ' (First inversion)';
+        }
+        else if (inversion == 2)
+        {
+            this.name += ' (Second inversion)';
+        }
         
         let baseIndex = NOTES.indexOf(baseNote);
         this.notes = [baseNote + (inversion == 0 ? '4' : '5')];

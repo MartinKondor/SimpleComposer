@@ -5,55 +5,43 @@
     const METRONOME_FUNCTION = () => METRONOME.triggerAttackRelease('F2', '16n');
 
     let BPM = 130;
-    let metronome_can_play = false;
-    let metronome_tap_timer = 0; 
-    let metronome_function_interval;  // Stores the metronome interval for later cleaning up
+    let metronomeCanPlay = false;
+    let metronomeTapTimer = 0; 
+    let metronomeFunctionInterval;  // Stores the metronome interval for later cleaning up
 
+    let currentOctave = 4;
     let highlightedChordKeys = [];  // The highlighted keys (DOM elements) on the keyboard
     let chordProgressionList = [];  // Chord classes
     let currentChord = null;  // Chord class
 
 
-    // Load keyboards
-    $('.keyboard').html(`
-        <div class="key white c" data-note="C3"></div>
-        <div class="key black c_sharp" data-note="C#3"></div>
-        <div class="key white d" data-note="D3"></div>
-        <div class="key black d_sharp" data-note="D#3"></div>
-        <div class="key white e" data-note="E3"></div>
-        <div class="key white f" data-note="F3"></div>
-        <div class="key black f_sharp" data-note="F#3"></div>
-        <div class="key white g" data-note="G3"></div>
-        <div class="key black g_sharp" data-note="G#3"></div>
-        <div class="key white a" data-note="A3"></div>
-        <div class="key black a_sharp" data-note="A#3"></div>
-        <div class="key white b" data-note="B3"></div>
-        <div class="key white c" data-note="C4"></div>
-        <div class="key black c_sharp" data-note="C#4"></div>
-        <div class="key white d" data-note="D4"></div>
-        <div class="key black d_sharp" data-note="D#4"></div>
-        <div class="key white e" data-note="E4"></div>
-        <div class="key white f" data-note="F4"></div>
-        <div class="key black f_sharp" data-note="F#4"></div>
-        <div class="key white g" data-note="G4"></div>
-        <div class="key black g_sharp" data-note="G#4"></div>
-        <div class="key white a" data-note="A4"></div>
-        <div class="key black a_sharp" data-note="A#4"></div>
-        <div class="key white b" data-note="B4"></div>
-        <div class="key white c" data-note="C5"></div>
-        <div class="key black c_sharp" data-note="C#5"></div>
-        <div class="key white d" data-note="D5"></div>
-        <div class="key black d_sharp" data-note="D#5"></div>
-        <div class="key white e" data-note="E5"></div>
-        <div class="key white f" data-note="F5"></div>
-        <div class="key black f_sharp" data-note="F#5"></div>
-        <div class="key white g" data-note="G5"></div>
-        <div class="key black g_sharp" data-note="G#5"></div>
-        <div class="key white a" data-note="A5"></div>
-        <div class="key black a_sharp" data-note="A#5"></div>
-        <div class="key white b" data-note="B5"></div>
-    `);
+    const createKeyboard = (middleOctave) =>
+    {   
+        let keyboardString = '';
 
+        for (let oct = middleOctave - 1; oct <= middleOctave + 1; oct++)
+        {
+            for (let note of NOTES)
+            {
+                let noteClass = note.toLowerCase();
+                let noteType = 'white';
+
+                if (noteClass[noteClass.length - 1] == '#')
+                {
+                    noteClass = noteClass[0] + '_sharp';
+                    noteType = 'black';
+                }
+
+                keyboardString += `
+                    <div class="key ${noteType} ${noteClass}" data-note="${note + new String(oct)}"></div>
+                `;
+            }
+        }
+
+        return keyboardString;
+    }
+
+    $('.keyboard').html(createKeyboard(currentOctave));  // Create the keyboard right before anything
 
     /**
      * Metronome
@@ -67,15 +55,23 @@
         $('#metronome_bpm_input').val(BPM);
     }
 
+    const setOctave = (octave) =>
+    {
+        currentOctave = octave;
+        $('#key_octave_input').val(currentOctave);
+        // $('.keyboard').html(createKeyboard(currentOctave));  // Update the keyboard
+        // updateCurrentChord();
+    }
+
     // Start or stop the metronome
     $('#metronome_start_btn').on('click', (e) =>
     {
-        metronome_can_play = !metronome_can_play;
+        metronomeCanPlay = !metronomeCanPlay;
 
-        if (metronome_can_play)
+        if (metronomeCanPlay)
         {
             setBPM($('#metronome_bpm_input').val());
-            metronome_function_interval = setInterval(METRONOME_FUNCTION, 1000 * 60 / BPM);
+            metronomeFunctionInterval = setInterval(METRONOME_FUNCTION, 1000 * 60 / BPM);
          
             $('#metronome_start_btn').removeClass('btn-primary');
             $('#metronome_start_btn').addClass('btn-danger');
@@ -86,7 +82,7 @@
         }
         else 
         {
-            clearInterval(metronome_function_interval);
+            clearInterval(metronomeFunctionInterval);
             
             $('#metronome_start_btn').addClass('btn-primary');
             $('#metronome_start_btn').removeClass('btn-danger');
@@ -100,19 +96,19 @@
     // Calculate BPM between tapings
     $('#metronome_tap_btn').on('click', (e) => 
     {
-        if (metronome_tap_timer > 0)
+        if (metronomeTapTimer > 0)
         {
             $('#metronome_tap_btn').html(`
                 <i class="far fa-hand-point-up"></i>
                 Tap
             `);
-            $('#metronome_bpm_input').val(Math.floor(60 / ((Date.now() - metronome_tap_timer) / 1000)));
-            metronome_tap_timer = 0;
+            $('#metronome_bpm_input').val(Math.floor(60 / ((Date.now() - metronomeTapTimer) / 1000)));
+            metronomeTapTimer = 0;
         }
         else
         {
             $('#metronome_tap_btn').html('. . . . . .');
-            metronome_tap_timer = Date.now();
+            metronomeTapTimer = Date.now();
         }
     });
 
@@ -140,7 +136,14 @@
     // Play note with Tone.js
     const playNote = (note) =>
     { 
-        SYNTH.triggerAttackRelease(note, '8n');
+        let noteName = note[0];
+
+        if (note[1] == '#')
+        {
+            noteName += '#';
+        }
+
+        SYNTH.triggerAttackRelease(noteName + new String(currentOctave), '8n');
     }
 
 
@@ -160,18 +163,34 @@
         $('#key_box_shower').toggleClass('hidden');
     });
 
+    // Key octave
+    $('#key_octave_input').change(() => 
+    {
+        setOctave(parseInt($('#key_octave_input').val()));
+    });
+
+    // Key octave buttons
+    $('#key_octave_plus_btn').on('click', () => 
+    {
+        setOctave(parseInt($('#key_octave_input').val()) + 1);
+    });
+    $('#key_octave_minus_btn').on('click', () => 
+    {
+        setOctave(parseInt($('#key_octave_input').val()) - 1);
+    });
+
 
     /**
      * Current chord
      */
-    function updateCurrentChord()
+    const updateCurrentChord = () =>
     {
         // Save current chord
         currentChord = new Chord(
             $('#current_chord_chord_base_note_input').val(),
             $('#current_chord_chord_type_input').val(),
             parseInt($('#current_chord_chord_inversion_input').val()),
-            4
+            currentOctave
         );
 
         // Remove highlight from previous keys
@@ -240,14 +259,12 @@
         // Play a chord on each beat 
         for (let currentChordInProgression of chordProgressionList)
         {
-            setTimeout(() =>
+            setTimeout(() => 
             {
-
                 for (let note of currentChordInProgression.notes)
                 {
-                    playNote(note);
+                    setTimeout(() => playNote(note), timeout / 3);
                 }
-
             }, timeout);
         }
     });
@@ -265,8 +282,10 @@
         $('#chords-list').html('<i class="text-muted">Chords will appear here ...</i>');
     });
 
+
     // Run immediately
     setBPM(BPM);
+    setOctave(currentOctave);
     $('#key-box').draggable();
     updateCurrentChord();
 

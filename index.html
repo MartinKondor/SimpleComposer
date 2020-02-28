@@ -36,10 +36,10 @@
 
             <div class="keyboard"></div>
 
-            <div class="row">
+            <div class="row mb-3">
 
                 <div class="col-sm">
-                    <div class="form-inline mb-3">
+                    <div class="form-inline">
                         <label for="key_base_note" class="mr-3">Base note</label>
     
                         <select id="key_base_note" class="form-control">
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="col-sm">
-                    <div class="form-inline mb-3">
+                    <div class="form-inline">
                         <label for="key_mode_input" class="mr-3">Mode</label>
 
                         <select id="key_mode_input" class="form-control">
@@ -75,7 +75,18 @@
                     </div>
                 </div>
 
+                <dov class="col-sm">
+                    <div class="form-inline">
+                        <label for="key_octave_input" class="mr-3">Octave</label>
+
+                        <button id="key_octave_plus_btn" class="btn btn-outline-secondary">+</button>
+                        <input id="key_octave_input" type="text" class="form-control mr-1 ml-1" maxlength="2" size="2" placeholder="..">
+                        <button id="key_octave_minus_btn" class="btn btn-outline-secondary">-</button>
+                    </div>
+                </dov>
+
             </div>
+
         </div>
 
         <div class="container-fluid">
@@ -117,9 +128,9 @@
 
                 <h3 class="subsubtitle">Current chord</h3>
 
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-sm">
-                        <div class="form-inline mb-3">
+                        <div class="form-inline">
                             <label for="current_chord_chord_base_note_input" class="mr-3">Base note</label>
         
                             <select id="current_chord_chord_base_note_input" class="form-control">
@@ -140,7 +151,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline mb-3">
+                        <div class="form-inline">
                             <label for="current_chord_chord_type_input" class="mr-3">Type</label>
 
                             <select id="current_chord_chord_type_input" class="form-control">
@@ -153,7 +164,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline mb-3">
+                        <div class="form-inline">
                             <label for="current_chord_chord_inversion_input" class="mr-3">Inversion</label>
 
                             <select id="current_chord_chord_inversion_input" class="form-control">
@@ -165,7 +176,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline mb-3">
+                        <div class="form-inline">
                             <button id="chords_chord_input_add_btn" class="btn btn-block btn-primary" title="Add the current chord to the chord progression list">
                                 <i class="fas fa-plus"></i>
                                 Add to progression

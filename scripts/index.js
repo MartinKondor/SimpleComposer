@@ -15,6 +15,13 @@
     let chordProgressionList = [];  // Chord classes
     let currentChord = null;  // Chord class
 
+    // For the suggester
+    const COMMON_CHORD_PROGRESSIONS = [
+        'i-iv-v-i', 'i-vii-vi-v', 'i-v-iv-v',
+        'i-v-vi-iv', 'ii-v-i-vi', 'i-ii-iii-iv',
+        'i-iii-iv-i', 'iv-i-v-vi', 'iv-v-i-iv'
+    ];
+
 
     const download = (blob, name) =>
     {
@@ -183,7 +190,8 @@
         let steps = 'wwwhwwwh';
         let currentIndex = baseIndex;
         let octave = currentOctave;
-        let notes = [baseNote + new String(octave + 1)];  // Adding octave interval
+        let notes = []; 
+        let notesOfTheScaleString = '';
 
         if (mode == 'Ionian')
         {
@@ -234,6 +242,8 @@
             }
         }
 
+        notes.push(baseNote + new String(parseInt(currentOctave) + 1))  // Adding octave interval
+
         // Remove highlight from previous keys
         for (let key of highlightedKeyKeys)
         {
@@ -247,7 +257,11 @@
             let key = $('#key_keyboard > .key[data-note="' + note + '"]');
             highlightedKeyKeys.push(key);
             key.addClass('highlighted-key');
+            notesOfTheScaleString += note + ', ';
         }
+
+        // Print out notes of the scale
+        $('#scale_notes_string').html(notesOfTheScaleString.substring(0, notesOfTheScaleString.length - 2));
     }
 
     $('#key_base_note').change(updateKeyBox);
@@ -406,5 +420,5 @@
     setOctave(currentOctave);
     updateCurrentChord();
     updateKeyBox();
- 
+
 })(jQuery);

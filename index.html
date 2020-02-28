@@ -3,7 +3,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
         <title>Simple Composer</title>
 
         <!-- Libraries -->
@@ -17,13 +16,14 @@
         <script src="lib/scripts/jquery-ui-v1.12.1.min.js"></script>
 
         <!-- Stylesheets -->
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
         <link rel="stylesheet" href="stylesheets/index.css">
     </head>
     <body>
 
         <div class="container-fluid">
 
-            <h1 class="text-center font-weight-bold pr-2 pl-2 pb-1 pt-1">🎵 Simple Composer</h1>
+            <h1 class="text-center font-weight-bold pr-2 pl-2 pb-1 pt-4">🎵 Simple Composer</h1>
 
             <div id="metronome-box">
                 <h2 class="subtitle font-weight-bold">Metronome</h2>
@@ -107,6 +107,15 @@
                     </dov>
     
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p>Notes of the scale:</p>                        
+                    </div>
+                    <div class="col-sm-8">
+                        <p id="scale_notes_string"></p>
+                    </div>
+                </div>
     
             </div>
 
@@ -180,6 +189,16 @@
                         </div>
                     </div>
 
+                </div>
+
+                <br>
+
+                <h3 class="subsubtitle">Chord functions</h3>
+
+                <div class="row text-center">
+                    <div class="col-sm">
+                        <img id="chord_functions_img" class="img" src="images/help/Functional-Harmony-Chart-Major.png" alt="Chord functions chart">
+                    </div>
                 </div>
 
                 <br>

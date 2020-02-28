@@ -3,6 +3,8 @@ Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
 */
 :root
 {
+    --primary-color: rgb(0, 123, 255);
+
     --bg-color: #ffffff;
     --box-bg-color: #ffffff;
 
@@ -106,7 +108,7 @@ Keyboard
 
 .highlighted-key
 {
-    background-color: rgb(0, 123, 255) !important;
+    background-color: var(--primary-color) !important;
 }
 
 .hidden
@@ -179,11 +181,27 @@ Keyboard
     padding: 30px;
 }
 
+#chord_functions_img
+{
+    height: 22vw;
+}
+
+#scale_notes_string 
+{
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
 @media screen and (max-width: 1000px)
 {
     html
     {
         padding: 1% 5% 1% 5% !important;
+    }
+
+    #chord_functions_img
+    {
+        height: 33vw;
     }
 }
 
@@ -192,5 +210,10 @@ Keyboard
     html
     {
         padding: 0% 0% 0% 0% !important;
+    }
+
+    #chord_functions_img
+    {
+        height: 34vw;
     }
 }

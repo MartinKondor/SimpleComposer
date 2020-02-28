@@ -6,6 +6,6 @@
 [] Chord progression suggester
     * Show chords on the keyboard
     * Play chords
-[] Save chord progressions
+[x] Save chord progressions
 [] Show chords in a little window when hovered
-[] Playable chord progression with playable buttons
+[x] Playable chord progression with playable buttons

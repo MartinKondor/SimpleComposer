@@ -1,7 +1,7 @@
 const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 
-function getNoteByInterval(baseIndex, interval, baseOctave=4)
+const getNoteByInterval = (baseIndex, interval, baseOctave=4) =>
 {
     let octave = new String(baseOctave);
 
@@ -13,7 +13,6 @@ function getNoteByInterval(baseIndex, interval, baseOctave=4)
 
     return NOTES[baseIndex + interval] + octave;
 }
-
 
 class Chord 
 {

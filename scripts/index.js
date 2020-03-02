@@ -1,5 +1,9 @@
 (($) =>
 {
+    // Refresh copyright year
+    $('#copyright_year').html(new Date().getFullYear());
+
+
     const SYNTH = new Tone.Synth().toMaster();
     const METRONOME = new Tone.MembraneSynth().toMaster(); 
     const METRONOME_FUNCTION = () => METRONOME.triggerAttackRelease('F2', '16n');
@@ -17,9 +21,10 @@
 
     // For the suggester
     const COMMON_CHORD_PROGRESSIONS = [
-        'i-iv-v-i', 'i-vii-vi-v', 'i-v-iv-v',
-        'i-v-vi-iv', 'ii-v-i-vi', 'i-ii-iii-iv',
-        'i-iii-iv-i', 'iv-i-v-vi', 'iv-v-i-iv'
+        'i,iv,v,i', 'i,vii,vi,v', 'i,v,iv,v',
+        'i,v,vi,iv', 'ii,v,i,vi', 'i,ii,iii,iv',
+        'i,iii,iv,i', 'iv,i,v,vi', 'iv,v,i,iv',
+        'i,vi,iv,ii,vii,v'
     ];
 
 
@@ -68,6 +73,71 @@
 
         return keyboardString;
     }
+
+    const romanizeNumber = (num) => {
+        if (isNaN(num))
+        {
+            return NaN;
+        }
+
+        let digits = String(+num).split('');
+        let key = [
+            "","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+            "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+            "","I","II","III","IV","V","VI","VII","VIII","IX"
+        ];
+        let roman = '';
+        let i = 3;
+        
+        while (i--)
+        {
+            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
+        }
+
+        return Array(+digits.join("") + 1).join("M") + roman;
+    }
+
+    const romanToInt = (character) => 
+    {
+        switch (character.toUpperCase())
+        {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
+    }
+
+    const romanToArabic = (roman) =>
+    {
+        let totalValue = 0; 
+        let value = 0;
+        let prev = 0;
+            
+        for(let i = 0; i < roman.length; i++)
+        {
+            let current = romanToInt(roman.charAt(i));
+
+            if (current > prev)
+            {
+                // Undo the addition that was done, turn it into subtraction
+                totalValue -= 2 * value;
+            }
+            if (current !== prev)  // Different symbol?
+            { 
+                value = 0; // reset the sum for the new symbol
+            }
+            value += current;  // Keep adding same symbols
+            totalValue += current;
+            prev = current;
+        }
+        return totalValue;
+    }
+
 
     $('.keyboard').html(createKeyboard(currentOctave));  // Create the keyboard right before anything
 
@@ -181,40 +251,13 @@
     /**
      * Key box
      */
-    const romanizeNumber = (num) => {
-        if (isNaN(num))
-        {
-            return NaN;
-        }
 
-        let digits = String(+num).split('');
-        let key = [
-            "","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
-            "","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
-            "","I","II","III","IV","V","VI","VII","VIII","IX"
-        ];
-        let roman = '';
-        let i = 3;
-        
-        while (i--)
-        {
-            roman = (key[+digits.pop() + (i * 10)] || "") + roman;
-        }
-
-        return Array(+digits.join("") + 1).join("M") + roman;
-    }
-
-    const updateKeyBox = () => 
+    const getNotesOfScale = (baseNote, mode) => 
     {
-        let baseNote = $('#key_base_note').val();
-        let baseIndex = NOTES.indexOf(baseNote);
-        let mode = $('#key_mode_input').val();
-        let steps = 'wwwhwwwh';
-        let currentIndex = baseIndex;
         let octave = currentOctave;
+        let currentIndex = NOTES.indexOf(baseNote);
         let notes = []; 
-        let notesOfTheScaleString = '';
-        let notesOfTheScaleLevelCounter = 0;
+        let steps = 'wwwhwwwh';
 
         if (mode == 'Ionian')
         {
@@ -266,6 +309,16 @@
         }
 
         notes.push(baseNote + new String(parseInt(currentOctave) + 1))  // Adding octave interval
+        return notes;
+    }
+
+    const updateKeyBox = () => 
+    {
+        let baseNote = $('#key_base_note').val();
+        let notesOfTheScaleString = '';
+        let notesOfTheScaleLevelCounter = 0;
+        let mode = $('#key_mode_input').val();
+        let notes = getNotesOfScale(baseNote, mode);
 
         // Remove highlight from previous keys
         for (let key of highlightedKeyKeys)
@@ -373,21 +426,38 @@
      * Chord progression
      */
 
-    // Add current chord to chord progression
-    $('#chords_chord_input_add_btn').on('click', () =>
+    const addChordToChordProgression = (chord) =>
     {
         if (chordProgressionList.length == 0)
         {
             $('#chords-list').html('');
         }
 
-        chordProgressionList.push(currentChord);
+        chordProgressionList.push(chord);
+        let chordIndex = chordProgressionList.length;
 
         $('#chords-list').append(`
         <li>
-            <button class="chord-btn" data-chord-index="${chordProgressionList.length}">${currentChord.name}</button>
+            <button id="chord-in-progression-btn-${chordIndex}" class="chord-btn" data-note-index="${chordIndex}">${chord.name}</button>
         </li>
         `);
+
+        // When a chord is clicked in the chord progression
+        $(`#chord-in-progression-btn-${chordIndex}`).on('click', (e) =>
+        {
+            // Show the clicked chord on the keyboard
+            let chord = chordProgressionList[e.target.getAttribute('data-note-index') - 1]
+
+            $('#current_chord_chord_base_note_input').val(chord.baseNote);
+            $('#current_chord_chord_type_input').val(chord.type);
+            updateCurrentChord();
+        });
+    }
+
+    // Add current chord to chord progression
+    $('#chords_chord_input_add_btn').on('click', () =>
+    {
+        addChordToChordProgression(currentChord);
     });
 
     // Plays the current chord progression
@@ -449,6 +519,72 @@
         $('#chords-list').html('<i class="text-muted">Chords will appear here ...</i>');
     });
 
+    $('#current_chord_progression_pattern_input').keypress(() => 
+    {
+        $('#current_chord_progression_pattern_input').val(
+            $('#current_chord_progression_pattern_input').val().replace(' ', '').toLowerCase()
+        );
+    });
+
+    $('#current_chord_progression_pattern_btn').on('click', () =>
+    {
+        let patternStr = $('#current_chord_progression_pattern_input').val();
+        
+        if (patternStr)
+        {
+            let pattern = patternStr.replace(' ', '').toLowerCase().split(',')
+            let notesOfScale = getNotesOfScale($('#key_base_note').val(), $('#key_mode_input').val());
+            const chordModes = ['M', 'm', 'aug', 'dim'];
+            let chord = null;
+            let chords = [];
+
+            // Find the chord on the selected scale
+            for (let romN of pattern)
+            {
+                if (!romN)
+                {
+                    continue;
+                }
+
+                let s = notesOfScale[romanToArabic(romN) - 1];
+                let baseNote = s.substring(0, s.length - 1);
+
+                for (let chordModeIndex = 0; chordModeIndex < chordModes.length; chordModeIndex++)
+                {
+                    chord = new Chord(baseNote, chordModes[chordModeIndex], 0, currentOctave);
+                    let inScale = true;
+
+                    // Check if chord notes are all in the scale
+                    for (let i = 0; i < chord.notes.length; i++)
+                    {
+                        if (!notesOfScale.includes(chord.notes[i].replace('5', currentOctave)))  // Needs to be more dynamic
+                        {
+                            inScale = false;
+                            break;
+                        }
+                    }
+
+                    if (inScale)
+                    {
+                        break;
+                    }
+                }
+
+                chords.push(chord);
+            }
+
+            // "Print" pattern to HTML
+            for (let chord of chords)
+            {
+                addChordToChordProgression(chord);
+            }
+        }
+    });
+
+    // Give suggestions
+    $('#current_chord_progression_pattern_input').autocomplete({
+        source: COMMON_CHORD_PROGRESSIONS
+    });
 
     // Run immediately
     setBPM(BPM);

@@ -438,7 +438,7 @@
 
         $('#chords-list').append(`
         <li>
-            <button id="chord-in-progression-btn-${chordIndex}" class="chord-btn" data-note-index="${chordIndex}">${chord.name}</button>
+            <button id="chord-in-progression-btn-${chordIndex}" class="btn btn-outline-primary btn-block chord-btn" data-note-index="${chordIndex}">${chord.name}</button>
         </li>
         `);
 
@@ -521,9 +521,11 @@
 
     $('#current_chord_progression_pattern_input').keypress(() => 
     {
+        /*
         $('#current_chord_progression_pattern_input').val(
             $('#current_chord_progression_pattern_input').val().replace(' ', '').toLowerCase()
         );
+        */
     });
 
     $('#current_chord_progression_pattern_btn').on('click', () =>
@@ -583,7 +585,8 @@
 
     // Give suggestions
     $('#current_chord_progression_pattern_input').autocomplete({
-        source: COMMON_CHORD_PROGRESSIONS
+        source: COMMON_CHORD_PROGRESSIONS,
+        delay: 0
     });
 
     // Run immediately

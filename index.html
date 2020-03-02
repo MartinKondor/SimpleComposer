@@ -6,7 +6,7 @@
         <title>Simple Composer</title>
 
         <!-- Libraries -->
-        <link rel="stylesheet" href="lib/stylesheets/bootstrap-v4-4-1.min.css">
+        <link rel="stylesheet" href="lib/stylesheets/bootstrap.min.css">
         <link rel="stylesheet" href="lib/stylesheets/fontawesome-free-5.10.1-all.min.css">
         <script src="lib/scripts/jquery-3.4.1.min.js"></script>
         <script src="lib/scripts/popper-v1.16.0.min.js"></script>
@@ -21,34 +21,15 @@
     </head>
     <body>
 
+        <!--
+        <div class="text-right pb-1 pt-1 pl-1 pr-1">
+            <i class="fas fa-question" style="color: var(--primary-color);"></i>
+        </div>
+        -->
+
         <div class="container-fluid">
 
-            <h1 class="text-center font-weight-bold pr-2 pl-2 pb-1 pt-4">🎵 Simple Composer</h1>
-
-            <div id="metronome-box">
-                <h2 class="subtitle font-weight-bold">Metronome</h2>
-
-                <div class="form-inline mb-3">
-                    <div class="form-group">
-                        <label for="metronome_bpm_input" class="mr-3" placeholder="BPM">BPM</label>
-
-                        <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary">+</button>
-                        <input id="metronome_bpm_input" type="text" class="form-control mr-1 ml-1" maxlength="3" size="3" placeholder="BPM">
-                        <button id="metronome_bpm_minus_btn" class="btn btn-outline-secondary">-</button>
-                    </div>
-                </div>
-
-                <button id="metronome_start_btn" class="btn btn-primary">
-                    <i class="far fa-play-circle"></i>
-                    Start
-                </button>
-                <button id="metronome_tap_btn" class="btn btn-secondary">
-                    <i class="far fa-hand-point-up"></i>
-                    Tap
-                </button>
-            </div>
-
-            <br>
+            <h1 class="title text-center font-weight-bold pr-2 pl-2 pb-1 pt-4"><i class="fas fa-music" style="color: var(--primary-color);"></i> Simple Composer</h1>
 
             <div id="key-box">
                 <h2 class="subtitle font-weight-bold">Key</h2>
@@ -187,22 +168,13 @@
                 <br>
 
                 <h3 class="subsubtitle">Chord progression</h3> 
-    
+
                 <br>
 
-                <!--
-                <div class="form-inline mb-4">
-                    <label for="chords_chord_input">Add a chord</label>
-                    <input id="chords_chord_input" class="form-control mr-1 ml-4" type="text" size="20" placeholder="Chord name, e.g. Cmaj7, Cm">
-                    
-                    <button id="chords_chord_input_add_btn" class="btn btn-secondary ml-1">Show</button>
-                </div>
-                -->
+                <div class="row">
 
-                <div class="row mb-5">
-                    
                     <div class="col-sm">
-                        <div class="form-inline mb-3">
+                        <div class="form-inline">
                             <button id="chord_progression_play_btn" class="btn btn-primary mr-1" title="Play the current chord progression">
                                 <i class="far fa-play-circle"></i>
                                 Play
@@ -216,23 +188,25 @@
                                 Clear
                             </button>
                         </div>
-        
-                        <ul id="chords-list">
-                            <i class="text-muted">Chords will appear here ...</i>
-                        </ul>
                     </div>
 
                     <div class="col-sm">
                         <div class="form-inline">
                             <label for="current_chord_progression_pattern_input" class="mr-1">Pattern</label>
                             <input id="current_chord_progression_pattern_input" class="form-control ml-2" type="text" size="30" placeholder="Roman numerals separated by comma">
-                            <button id="current_chord_progression_pattern_btn" class="btn btn-primary ml-1">
+                            <button id="current_chord_progression_pattern_btn" class="btn btn-primary btn-sm ml-1" title="Load the chord progression in the selected key">
                                 Apply
                             </button>
                         </div>
                     </div>
 
                 </div>
+
+                <br>
+
+                <ol id="chords-list" class="mb-5">
+                    <i class="text-muted">Chords will appear here ...</i>
+                </ol>
 
                 <br>
 
@@ -243,19 +217,45 @@
                         <img id="chord_functions_img" class="img" src="images/help/Functional-Harmony-Chart-Major.png" alt="Chord functions chart">
                     </div>
                 </div>
-                
-            </div>
-        </div>
 
-        <footer class="text-muted small">
-            Copyright &copy; Martin Kondor <span id="copyright_year"></span>
+                <br>
+            </div>
+
+            <div id="metronome-box">
+                <h2 class="subtitle font-weight-bold">Metronome</h2>
+
+                <div class="form-inline mb-3">
+                    <div class="form-group">
+                        <label for="metronome_bpm_input" class="mr-3" placeholder="BPM">BPM</label>
+
+                        <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary">+</button>
+                        <input id="metronome_bpm_input" type="text" class="form-control mr-1 ml-1" maxlength="3" size="3" placeholder="BPM">
+                        <button id="metronome_bpm_minus_btn" class="btn btn-outline-secondary">-</button>
+                    </div>
+                </div>
+
+                <button id="metronome_start_btn" class="btn btn-primary">
+                    <i class="far fa-play-circle"></i>
+                    Start
+                </button>
+                <button id="metronome_tap_btn" class="btn btn-secondary">
+                    <i class="far fa-hand-point-up"></i>
+                    Tap
+                </button>
+            </div>
+
             <br>
-            Made by <a href="https://martinkondor.github.io/">Martin Kondor</a>
-            <br>
-            Contact: <a href="mailto:martinkondor@gmail.com">martinkondor@gmail.com</a>
-            <br>
-            Contribute: <a href="https://github.com/MartinKondor/SimpleComposer">https://github.com/MartinKondor/SimpleComposer</a>
-        </footer>
+        
+            <footer class="text-muted small">
+                Made by <a href="https://martinkondor.github.io/">Martin Kondor</a>
+                <br>
+                Contact: <a href="mailto:martinkondor@gmail.com">martinkondor@gmail.com</a>
+                <br>
+                Contribute: <a href="https://github.com/MartinKondor/SimpleComposer">https://github.com/MartinKondor/SimpleComposer</a>
+                <br>
+                Copyright &copy; Martin Kondor <span id="copyright_year"></span>
+            </footer>
+        </div>
 
         <!-- Scripts -->
         <script src="scripts/Chord.js"></script>

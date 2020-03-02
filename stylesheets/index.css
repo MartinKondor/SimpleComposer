@@ -3,10 +3,12 @@ Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
 */
 :root
 {
-    --primary-color: rgb(0, 123, 255);
+    --primary-color: rgb(77, 160, 160);  /*rgb(0, 123, 255)*/
+    --primary-hover-color: rgb(70, 145, 145);
+    --primary-active-color: rgb(60, 129, 129);
 
-    --bg-color: #ffffff;
-    --box-bg-color: #ffffff;
+    --bg-color: #fefefe;
+    --box-bg-color: #fefefe;
 
     --text-color: #E9E9EA;
     --light-text-color: #424242;
@@ -23,20 +25,42 @@ Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
     --black-key-active-color: #020202;
 }
 
+::selection,
+::-moz-selection {
+    background: var(--primary-hover-color);
+    color: #fefefe;
+}
+
 html
 {
     height: 100%;
     width: 100%;
-    background-color: #eeeeee;
+    background-color: #dddddd;
     color: var(--text-color);
-    padding: 2% 20% 2% 20%;
+    padding: 0% 19% 0% 19%;
+    font-size: 20px;
+
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
 
     /*
     background: url('');
     background-repeat: no-repeat;
     background-size: cover;
     */
-}   
+}
+
+a,
+input,
+textarea,
+button {
+    transition: all 0.2s linear;
+}
 
 div 
 {
@@ -49,6 +73,11 @@ footer
     padding: 10px;
 }
 
+.container-fluid
+{
+    box-shadow: 0px 0px 22px #a5a5a5;
+}
+
 /*
 Override bootstrap defaults
 */
@@ -58,10 +87,17 @@ Override bootstrap defaults
     border-radius: 0%;
 }
 
+.title 
+{
+    font-size: 59px;
+}
+
 .subtitle
 {
+    font-size: 40px;
+
     font-weight: bold;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     padding-bottom: 10px;
     color: var(--light-text-color);
     border-bottom: 2px dotted var(--light-text-color);
@@ -69,6 +105,8 @@ Override bootstrap defaults
 
 .subsubtitle
 {
+    font-size: 33px;
+
     font-weight: bold;
     margin-bottom: 30px;
     padding-bottom: 10px;
@@ -85,9 +123,8 @@ button > i
 
 .chord-btn
 {
-    border: none;
-    background-color: rgb(0, 0, 0, 0);
-    color: rgb(0, 0, 0);
+    display: inline-block;
+    font-size: 17px;
     font-weight: bold;
 }
 
@@ -109,6 +146,16 @@ Keyboard
 .highlighted-key
 {
     background-color: var(--primary-color) !important;
+}
+
+.highlighted-key:hover
+{
+    background-color: var(--primary-hover-color) !important;
+}
+
+.highlighted-key:active
+{
+    background-color: var(--primary-active-color) !important;
 }
 
 .hidden
@@ -174,6 +221,13 @@ Keyboard
     border-right: 0.12vw solid #AAAAAA;
 }
 
+#current_chord_progression_pattern_input
+{
+    font-weight: bold;
+    color: #070707;
+}
+
+/* jQuery autocomplete list */
 .ui-autocomplete
 {
     font-size: 22px;
@@ -199,6 +253,7 @@ Keyboard
 
 #scale_notes_string 
 {
+    font-size: 20px;
     font-weight: bold;
     color: var(--primary-color);
 }

@@ -4,14 +4,6 @@
 
 A little help for composing music, works from any device with web browser.
 
-## Features
-
-...
-
-## Guide
-
-...
-
 ## Contributing
 
 Ways to contribute:

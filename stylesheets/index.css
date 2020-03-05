@@ -7,6 +7,10 @@ Palette URL: http://paletton.com/#uid=51T0u0ko5seeDD+jNv7s1nZv1j5
     --primary-hover-color: rgb(70, 145, 145);
     --primary-active-color: rgb(60, 129, 129);
 
+    --primary-dark-color: rgb(67, 150, 160);
+    --primary-dark-hover-color: rgb(60, 135, 145);
+    --primary-dark-active-color: rgb(50, 119, 129);
+
     --bg-color: #fefefe;
     --box-bg-color: #fefefe;
 
@@ -38,7 +42,7 @@ html
     background-color: #dddddd;
     color: var(--text-color);
     padding: 0% 19% 0% 19%;
-    font-size: 20px;
+    font-size: 18px;
 
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
@@ -156,6 +160,21 @@ Keyboard
 .highlighted-key:active
 {
     background-color: var(--primary-active-color) !important;
+}
+
+.black.highlighted-key
+{
+    background-color: var(--primary-dark-color) !important;
+}
+
+.black.highlighted-key:hover
+{
+    background-color: var(--primary-dark-hover-color) !important;
+}
+
+.black.highlighted-key:active
+{
+    background-color: var(--primary-dark-active-color) !important;
 }
 
 .hidden

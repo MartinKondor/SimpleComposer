@@ -62,7 +62,7 @@
                     </div>
     
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="key_mode_input" class="mr-3">Mode</label>
     
                             <select id="key_mode_input" class="form-control">
@@ -78,12 +78,12 @@
                     </div>
     
                     <dov class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="key_octave_input" class="mr-3">Octave</label>
     
-                            <button id="key_octave_plus_btn" class="btn btn-outline-secondary">+</button>
-                            <input id="key_octave_input" type="text" class="form-control mr-1 ml-1" maxlength="2" size="2" placeholder="..">
-                            <button id="key_octave_minus_btn" class="btn btn-outline-secondary">-</button>
+                            <button id="key_octave_plus_btn" class="btn btn-outline-secondary btn-sm">+</button>
+                            <button id="key_octave_minus_btn" class="btn btn-outline-secondary btn-sm">-</button>
+                            <input id="key_octave_input" type="text" class="form-control mr-1 ml-1" maxlength="1" size="1" placeholder="..">
                         </div>
                     </dov>
     
@@ -126,7 +126,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="current_chord_chord_type_input" class="mr-3">Type</label>
 
                             <select id="current_chord_chord_type_input" class="form-control">
@@ -139,7 +139,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="current_chord_chord_inversion_input" class="mr-3">Inversion</label>
 
                             <select id="current_chord_chord_inversion_input" class="form-control">
@@ -151,7 +151,7 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <button id="chords_chord_input_add_btn" class="btn btn-block btn-primary" title="Add the current chord to the chord progression list">
                                 <i class="fas fa-plus"></i>
                                 Add to progression
@@ -191,10 +191,10 @@
                     </div>
 
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="current_chord_progression_pattern_input" class="mr-1">Pattern</label>
                             <input id="current_chord_progression_pattern_input" class="form-control ml-2" type="text" size="30" placeholder="Roman numerals separated by comma">
-                            <button id="current_chord_progression_pattern_btn" class="btn btn-primary btn-sm ml-1" title="Load the chord progression in the selected key">
+                            <button id="current_chord_progression_pattern_btn" class="btn btn-primary btn-sm ml-1 mt-1" title="Load the chord progression in the selected key">
                                 Apply
                             </button>
                         </div>
@@ -229,9 +229,9 @@
                     <div class="form-group">
                         <label for="metronome_bpm_input" class="mr-3" placeholder="BPM">BPM</label>
 
-                        <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary">+</button>
+                        <button id="metronome_bpm_plus_btn" class="btn btn-outline-secondary btn-sm">+</button>
+                        <button id="metronome_bpm_minus_btn" class="btn btn-outline-secondary btn-sm">-</button>
                         <input id="metronome_bpm_input" type="text" class="form-control mr-1 ml-1" maxlength="3" size="3" placeholder="BPM">
-                        <button id="metronome_bpm_minus_btn" class="btn btn-outline-secondary">-</button>
                     </div>
                 </div>
 

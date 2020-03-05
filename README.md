@@ -1,8 +1,20 @@
-# 🎵 SimpleComposer 🎹
+<p align="center">
+    <img src="logo.jpg" width="200">
+</p>
 
-[![version](https://img.shields.io/badge/version-v0.1.0-red.svg)](https://github.com/MartinKondor/SimpleComposer) [![Project Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/MartinKondor/SimpleComposer) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/SimpleComposer.svg)](https://github.com/MartinKondor/SimpleComposer/issues)
+# 🎵 SimpleComposer
+
+[![version](https://img.shields.io/badge/version-v1.0.0-brightgreen.svg)](https://github.com/MartinKondor/SimpleComposer) [![Project Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com/MartinKondor/SimpleComposer) ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg) [![GitHub Issues](https://img.shields.io/github/issues/MartinKondor/SimpleComposer.svg)](https://github.com/MartinKondor/SimpleComposer/issues)
 
 A little help for composing music, works from any device with web browser.
+
+## Features
+
+* Scale / Key help
+* Chord help
+* Chord pattern generator
+* Chord progression tracker / saver
+* Metronome
 
 ## Contributing
 
@@ -10,6 +22,7 @@ Ways to contribute:
 
 * Check for open issues
 * Read the ```TODO``` file
+* Make an improvement
 
 ### Steps
 
@@ -36,6 +49,4 @@ Ways to contribute:
 
 Copyright &copy; Martin Kondor 2020.
 
-MIT license.
-
-See the [LICENSE](./LICENSE) file for more details.
+MIT license, see the [LICENSE](./LICENSE) file for more details.

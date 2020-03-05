@@ -132,6 +132,23 @@ button > i
     font-weight: bold;
 }
 
+#settings_btn 
+{
+    color: var(--primary-color);
+    font-size: 35px;
+    cursor: pointer;
+}
+
+#settings_btn:hover
+{
+    color: var(--primary-hover-color);
+}
+
+#settings_btn:active
+{
+    color: var(--primary-active-color);
+}
+
 /*
 Keyboard
 */
@@ -145,6 +162,27 @@ Keyboard
     justify-content: center;
     -webkit-box-align: center;
     align-items: center;
+}
+
+.key 
+{
+    position: relative;
+}
+
+.key-text
+{
+    /* Place key note names to the bottom of the key */
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    color: #424242;
+    background-color: #00000000;
+    font-size: 14px;
+}
+
+.black > .key-text
+{
+    color: #ebebeb;
 }
 
 .highlighted-key

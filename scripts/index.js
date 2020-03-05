@@ -3,6 +3,9 @@
     // Refresh copyright year
     $('#copyright_year').html(new Date().getFullYear());
 
+    const SETTINGS = {
+        'labels_on_keys': true
+    };
 
     const SYNTH = new Tone.Synth().toMaster();
     const METRONOME = new Tone.MembraneSynth().toMaster(); 
@@ -66,7 +69,11 @@
                 }
 
                 keyboardString += `
-                    <div class="key ${noteType} ${noteClass}" data-note="${note + new String(oct)}"></div>
+                    <div class="key ${noteType} ${noteClass}" data-note="${note + new String(oct)}">
+                        <div class="key-text">
+                            ${note + new String(oct)}
+                        </div>
+                    </div>
                 `;
             }
         }
@@ -589,10 +596,43 @@
         delay: 0
     });
 
+
+    /*
+        Settings
+    */
+   $('#settings_apply_btn').on('click', () => 
+   {
+        const convertInputToJSON = (input) =>
+        {
+            if (input == 'on') return true;
+            if (input == 'off') return true;
+            return input;
+        }
+
+       // Get settings and save them in cookies
+       for (let settingName of Object.keys(SETTINGS)) 
+       {
+            SETTINGS[settingName] = convertInputToJSON($(`[data-setting="${settingName}"]`).val().toLowerCase());
+
+            // Set apply settings
+            if (settingName == 'labels_on_keys')
+            {
+                $('.key-text').css('display', SETTINGS['labels_on_keys'] ? 'block' : 'none');
+            }
+       }
+   });
+
+   const loadSettings = () =>
+   {
+        // Load settings from cookies
+   }
+
+
     // Run immediately
     setBPM(BPM);
     setOctave(currentOctave);
     updateCurrentChord();
     updateKeyBox();
+    loadSettings();
 
 })(jQuery);

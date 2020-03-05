@@ -1,8 +1,13 @@
-<html>
+<!DOCTYPE HTML>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <!-- SEO stuff -->
+        <!-- / SEO stuff -->
+
         <title>Simple Composer</title>
 
         <!-- Libraries -->
@@ -21,14 +26,46 @@
     </head>
     <body>
 
-        <!--
-        <div class="text-right pb-1 pt-1 pl-1 pr-1">
-            <i class="fas fa-question" style="color: var(--primary-color);"></i>
-        </div>
-        -->
-
         <div class="container-fluid">
 
+            <!-- Settings button -->
+            <!--
+            <button id="settings_btn" title="Settings" class="btn text-right pb-1 pt-1 pl-1 pr-1" data-toggle="modal" data-target="#settings-modal">
+                <i class="fas fa-cog"></i>
+            </button>
+            -->
+
+            <!-- Settings modal -->
+            <div id="settings-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal_label" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_label">Settings</h5>
+                        <button title="Cancel" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <br>
+                        <!-- Settings -->
+                        
+                        <div class="form-inline">
+                            <input data-setting="labels_on_keys" class="form-control mr-2" type="checkbox">
+                            <label >Note name labels on keys</label>
+                        </div>
+
+                        <br>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="settings_apply_btn" type="button" class="btn btn-primary" data-dismiss="modal">Apply &amp; Save</button>
+                        <button title="Cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / Settings modal -->
+
+            <!-- Title -->
             <h1 class="title text-center font-weight-bold pr-2 pl-2 pb-1 pt-4"><i class="fas fa-music" style="color: var(--primary-color);"></i> Simple Composer</h1>
 
             <div id="key-box">
@@ -41,7 +78,7 @@
                 <div class="row mb-3">
     
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="key_base_note" class="mr-3">Base note</label>
         
                             <select id="key_base_note" class="form-control">
@@ -92,9 +129,11 @@
                 <p>Notes of the scale: <span id="scale_notes_string"></span></p>       
     
             </div>
+            <!-- / Key box -->
 
             <br>
 
+            <!-- Chords box -->
             <div id="chords-box">
                 <h2 class="subtitle font-weight-bold">Chords</h2>
                 <div id="chords_keyboard" class="keyboard"></div>
@@ -105,7 +144,7 @@
 
                 <div class="row mb-3">
                     <div class="col-sm">
-                        <div class="form-inline">
+                        <div class="form-inline mt-3">
                             <label for="current_chord_chord_base_note_input" class="mr-3">Base note</label>
         
                             <select id="current_chord_chord_base_note_input" class="form-control">
@@ -221,7 +260,9 @@
 
                 <br>
             </div>
+            <!-- / Chords box -->
 
+            <!-- Metronome box -->
             <div id="metronome-box">
                 <h2 class="subtitle font-weight-bold">Metronome</h2>
 
@@ -244,6 +285,7 @@
                     Tap
                 </button>
             </div>
+            <!-- / Metronome box -->
 
             <br>
         

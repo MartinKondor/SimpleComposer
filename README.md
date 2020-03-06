@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="logo.jpg" width="200">
+    <img src="images/logo.jpg" width="500">
 </p>
 
 # 🎵 SimpleComposer

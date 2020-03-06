@@ -317,6 +317,15 @@ Keyboard
 
 @media screen and (max-width: 1000px)
 {
+    .key-text
+    {
+        left: 0% !important;
+        font-size: 11px !important;
+    }
+}
+
+@media screen and (max-width: 1000px)
+{
     html
     {
         padding: 1% 5% 1% 5% !important;
@@ -324,7 +333,13 @@ Keyboard
 
     #chord_functions_img
     {
-        height: 33vw;
+        height: 33vw !important;
+    }
+    
+    .key-text
+    {
+        left: 0% !important;
+        font-size: 11px !important;
     }
 }
 
@@ -337,6 +352,12 @@ Keyboard
 
     #chord_functions_img
     {
-        height: 34vw;
+        height: 34vw !important;
+    }
+    
+    .key-text
+    {
+        left: 0% !important;
+        font-size: 5px !important;
     }
 }

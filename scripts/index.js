@@ -71,7 +71,7 @@
                 keyboardString += `
                     <div class="key ${noteType} ${noteClass}" data-note="${note + new String(oct)}">
                         <div class="key-text">
-                            ${note + new String(oct)}
+                            ${note}
                         </div>
                     </div>
                 `;

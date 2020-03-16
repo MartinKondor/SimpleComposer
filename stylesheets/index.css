@@ -296,9 +296,16 @@ Keyboard
     cursor: pointer;
 }
 
+#key-char-box
+{
+    /* Hide by default */
+    display: none;
+}
+
 #metronome-box,
 #chords-box,
-#key-box 
+#key-box,
+#key-char-box
 {
     padding: 30px;
 }

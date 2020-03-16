@@ -626,13 +626,20 @@
    {
         // Load settings from cookies
    }
+   
+   
+   $('#what-key-to-choose-btn').on('click', () => 
+   {
+       $('#key-char-box').css('display', 'block');
+       $('#what-key-to-choose-btn').css('display', 'none');
+   });
 
 
-    // Run immediately
-    setBPM(BPM);
-    setOctave(currentOctave);
-    updateCurrentChord();
-    updateKeyBox();
-    loadSettings();
+   // Run immediately
+   setBPM(BPM);
+   setOctave(currentOctave);
+   updateCurrentChord();
+   updateKeyBox();
+   loadSettings();
 
 })(jQuery);

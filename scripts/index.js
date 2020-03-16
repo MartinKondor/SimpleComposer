@@ -541,45 +541,42 @@
         
         if (patternStr)
         {
-            let pattern = patternStr.replace(' ', '').toLowerCase().split(',')
-            let notesOfScale = getNotesOfScale($('#key_base_note').val(), $('#key_mode_input').val());
-            const chordModes = ['M', 'm', 'aug', 'dim'];
+            let pattern = patternStr.replace(' ', '').toLowerCase().split(',');
+            let notesOfScale = getNotesOfScale($('#key_base_note').val(), $('#key_mode_input').val()).map((a) => a.substring(0, a.length - 1));
             let chord = null;
             let chords = [];
 
-            // Find the chord on the selected scale
             for (let romN of pattern)
             {
                 if (!romN)
                 {
                     continue;
                 }
-
-                let s = notesOfScale[romanToArabic(romN) - 1];
-                let baseNote = s.substring(0, s.length - 1);
-
-                for (let chordModeIndex = 0; chordModeIndex < chordModes.length; chordModeIndex++)
+                
+                let baseNote = notesOfScale[romanToArabic(romN) - 1];
+                
+                for (let chordMode of ['M', 'm', 'dim', 'aug'])
                 {
-                    chord = new Chord(baseNote, chordModes[chordModeIndex], 0, currentOctave);
+                    chord = new Chord(baseNote, chordMode, 0, currentOctave);
+                    chord.notes = chord.notes.map((a) => a.substring(0, a.length - 1));
                     let inScale = true;
-
-                    // Check if chord notes are all in the scale
-                    for (let i = 0; i < chord.notes.length; i++)
+                    
+                    for (let chordNote of chord.notes)
                     {
-                        if (!notesOfScale.includes(chord.notes[i].replace('5', currentOctave)))  // Needs to be more dynamic
+                        if (notesOfScale.indexOf(chordNote) == -1)
                         {
                             inScale = false;
                             break;
                         }
                     }
-
+                    
                     if (inScale)
                     {
+                        chords.push(chord);
                         break;
                     }
                 }
 
-                chords.push(chord);
             }
 
             // "Print" pattern to HTML

@@ -19,6 +19,11 @@ class Chord
 
     constructor(baseNote, type='M', inversion=0, octave=4)
     {
+        if (baseNote.length == 0) 
+        {
+            console.error('No base note provied');
+        }
+        
         this.baseNote = baseNote;
         this.type = type;
         this.inversion = inversion;

@@ -77,6 +77,15 @@ footer
     padding: 10px;
 }
 
+/*
+Title link
+*/
+h1 > a
+{
+    color: var(--light-text-color);
+    text-decoration: none;
+}
+
 .container-fluid
 {
     box-shadow: 0px 0px 22px #a5a5a5;

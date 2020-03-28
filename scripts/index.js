@@ -27,7 +27,7 @@
         'i,iv,v,i', 'i,vii,vi,v', 'i,v,iv,v',
         'i,v,vi,iv', 'ii,v,i,vi', 'i,ii,iii,iv',
         'i,iii,iv,i', 'iv,i,v,vi', 'iv,v,i,iv',
-        'i,vi,iv,ii,vii,v'
+        'i,vi,iv,ii,vii,v', 'i,v,vi,iii,iv,i,iv,v'
     ];
 
 
